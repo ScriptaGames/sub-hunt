@@ -14,7 +14,7 @@ export default class PreloadScene extends Phaser.Scene {
         consola.trace('Loading assets..');
 
         // Static images
-        this.load.image('ground-image', '../assets/images/sample_background.png');
+        this.load.image('ground-image', '../assets/images/Trenches_render.png');
         this.load.image('sub-image', '../assets/images/Sub-Base.png');
 
         // Sprite sheets
@@ -22,7 +22,7 @@ export default class PreloadScene extends Phaser.Scene {
         this.load.spritesheet('propeller', '../assets/images/Sub-Prop-sprite-sheet.png', { frameWidth: 56, frameHeight: 26 })
 
         // Physics shapes
-        this.load.json('ground-shape', 'assets/json/ground-shape.json');
+        this.load.json('shapes', 'assets/json/shapes.json');
     }
 
     /**

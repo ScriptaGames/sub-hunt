@@ -1,6 +1,7 @@
 /* global Phaser */
 
 const consola = require('consola').withTag('MainScene');
+import config from '../config';
 
 export default class MainScene extends Phaser.Scene {
 
@@ -14,17 +15,23 @@ export default class MainScene extends Phaser.Scene {
     create() {
         consola.info('Create');
 
-        let groundShape = this.cache.json.get('ground-shape');
-        this.matter.world.setBounds(0, 0, this.game.config.width, this.game.config.height);
-        // this.add.image(0, 0, 'ground-image').setOrigin(0, 0);
+        let shapes = this.cache.json.get('shapes');
+        this.matter.world.setBounds(0, 0, config.WORLD_WIDTH, config.WORLD_HEIGHT);
 
-        let ground = this.matter.add.sprite(0, 0, 'ground-image', null, {shape: groundShape.sample_background});
+        let ground = this.matter.add.sprite(0, 0, 'ground-image', null, {shape: shapes.Trenches_render});
         ground.setPosition(1000 + ground.centerOfMass.x, 1950 + ground.centerOfMass.y);
         // ground.setOrigin(0, 0);
 
-        this.subSprite = this.matter.add.sprite(1000, 300, 'sub-image');
+        this.subSprite = this.matter.add.sprite(1000, 300, 'sub-image', null, {shape: shapes.Sub_Base});
+        this.subSprite.setScale(0.5, 0.5);
+        // this.subSprite.thrustRight(0.05);
 
         // this.add.sprite(400, 300, 'propeller').play('propellerAnimation');
+
+        // Set up the camera
+        this.cameras.main.setBounds(0, 0, config.WORLD_WIDTH, config.WORLD_HEIGHT);
+        this.cameras.main.startFollow(this.subSprite, false, 0.05, 0.05);
+        this.cameras.main.setZoom(1);
 
         // Fullscreen button
         // TODO: Add this in the right possition
@@ -46,6 +53,6 @@ export default class MainScene extends Phaser.Scene {
     update() {
         // let position = this.subSprite.copyPosition();
         // this.subSprite.setPosition(position.x, position.y + 10)
-        this.subSprite.setVelocity(0, 0.5);
+        this.subSprite.setVelocity(0, 1);
     }
 }
