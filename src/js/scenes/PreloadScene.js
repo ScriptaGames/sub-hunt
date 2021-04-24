@@ -13,6 +13,7 @@ export default class PreloadScene extends Phaser.Scene {
     preload() {
         consola.trace('Loading assets..');
         this.load.spritesheet('fullscreen', '../assets/images/fullscreen-white.png', { frameWidth: 64, frameHeight: 64 });
+        this.load.image('sub', '../assets/images/sub.png');
     }
 
     /**

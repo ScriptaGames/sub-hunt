@@ -23,6 +23,6 @@ export default class MenuScene extends Phaser.Scene {
         consola.info('Create');
 
         // TODO: create a main menu "Play" button
-        this.scene.start('MainScene');
+        this.scene.start('LightingScene');
     }
 }
