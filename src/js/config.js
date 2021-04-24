@@ -1,10 +1,9 @@
 /* global ENV */
 
 const config = {
-    GAME_WIDTH : 800,
-    GAME_HEIGHT: 600,
-    GRAVITY    : 300,
-    DEBUG      : false,
+    GAME_WIDTH : 2000,
+    GAME_HEIGHT: 3000,
+    DEBUG      : true,
 };
 
 if (ENV === 'dev') {

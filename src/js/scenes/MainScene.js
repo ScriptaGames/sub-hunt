@@ -9,46 +9,43 @@ export default class MainScene extends Phaser.Scene {
     }
 
     preload() {
-        // External assets
-        this.load.setBaseURL('http://labs.phaser.io');
-        this.load.image('sky', 'assets/skies/space3.png');
-        this.load.image('logo', 'assets/sprites/phaser3-logo.png');
-        this.load.image('red', 'assets/particles/red.png');
     }
 
     create() {
         consola.info('Create');
-        this.add.image(400, 300, 'sky');
 
-        const particles = this.add.particles('red');
+        let groundShape = this.cache.json.get('ground-shape');
+        this.matter.world.setBounds(0, 0, this.game.config.width, this.game.config.height);
+        // this.add.image(0, 0, 'ground-image').setOrigin(0, 0);
 
-        const emitter = particles.createEmitter({
-            speed    : 100,
-            scale    : { start: 1, end: 0 },
-            blendMode: 'ADD',
-        });
+        let ground = this.matter.add.sprite(0, 0, 'ground-image', null, {shape: groundShape.sample_background});
+        ground.setPosition(1000 + ground.centerOfMass.x, 1950 + ground.centerOfMass.y);
+        // ground.setOrigin(0, 0);
 
-        const logo = this.physics.add.image(400, 100, 'logo');
+        this.subSprite = this.matter.add.sprite(1000, 300, 'sub-image');
 
-        logo.setVelocity(100, 200);
-        logo.setBounce(1, 1);
-        logo.setCollideWorldBounds(true);
-
-        emitter.startFollow(logo);
+        // this.add.sprite(400, 300, 'propeller').play('propellerAnimation');
 
         // Fullscreen button
-        const fullscreenButton = this.add.image(800 - 16, 16, 'fullscreen', 0).setOrigin(1, 0).setInteractive();
-        fullscreenButton.on('pointerup', () => {
-            if (this.scale.isFullscreen) {
-                consola.debug('Stop fullscreen');
-                fullscreenButton.setFrame(0);
-                this.scale.stopFullscreen();
-            }
-            else {
-                consola.debug('Start fullscreen');
-                fullscreenButton.setFrame(1);
-                this.scale.startFullscreen();
-            }
-        }, this);
+        // TODO: Add this in the right possition
+        // const fullscreenButton = this.add.image(800 - 16, 16, 'fullscreen', 0).setOrigin(1, 0).setInteractive();
+        // fullscreenButton.on('pointerup', () => {
+        //     if (this.scale.isFullscreen) {
+        //         consola.debug('Stop fullscreen');
+        //         fullscreenButton.setFrame(0);
+        //         this.scale.stopFullscreen();
+        //     }
+        //     else {
+        //         consola.debug('Start fullscreen');
+        //         fullscreenButton.setFrame(1);
+        //         this.scale.startFullscreen();
+        //     }
+        // }, this);
+    }
+
+    update() {
+        // let position = this.subSprite.copyPosition();
+        // this.subSprite.setPosition(position.x, position.y + 10)
+        this.subSprite.setVelocity(0, 0.5);
     }
 }

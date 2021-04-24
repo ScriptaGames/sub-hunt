@@ -20,10 +20,12 @@ export default class Game extends Phaser.Game {
                 height    : config.GAME_HEIGHT,
             },
             physics: {
-                default: 'arcade',
-                arcade : {
-                    gravity: { y: config.GRAVITY },
+                default: 'matter',
+                matter : {
                     debug  : config.DEBUG,
+                    gravity: {
+                        y: 0
+                    }
                 },
             },
             scene: [PreloadScene, MenuScene, MainScene],
