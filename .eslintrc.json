@@ -1,0 +1,96 @@
+{
+    "root": true,
+    "parserOptions": {
+        "ecmaVersion": 8,
+        "sourceType": "module"
+    },
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "google"
+    ],
+    "rules": {
+        "space-infix-ops": "error",
+        "space-in-parens": "error",
+        "no-multi-spaces": "off",
+        "require-jsdoc": "off",
+        "no-console": "off",
+        "padded-blocks": "off",
+        "new-cap": "off",
+        "camelcase": [
+            "error",
+            {
+                "ignoreImports": true,
+                "ignoreGlobals": true
+            }
+        ],
+        "curly": [
+            "error",
+            "multi-line",
+            "consistent"
+        ],
+        "object-curly-spacing": [
+            "error",
+            "always"
+        ],
+        "key-spacing": [
+            "error",
+            {
+                "align": {
+                    "beforeColon": false,
+                    "afterColon": true,
+                    "on": "colon"
+                }
+            }
+        ],
+        "spaced-comment": [
+            "error",
+            "always",
+            {
+                "line": {
+                    "exceptions": [
+                        "/"
+                    ]
+                },
+                "block": {
+                    "exceptions": [
+                        "*"
+                    ],
+                    "balanced": true
+                }
+            }
+        ],
+        "quotes": [
+            "error",
+            "single",
+            {
+                "avoidEscape": true,
+                "allowTemplateLiterals": true
+            }
+        ],
+        "brace-style": [
+            "error",
+            "stroustrup"
+        ],
+        "indent": [
+            "error",
+            4,
+            {
+                "SwitchCase": 1
+            }
+        ],
+        "max-len": [
+            "error",
+            {
+                "code": 120,
+                "ignoreUrls": true,
+                "ignoreStrings": true,
+                "ignoreTrailingComments": true
+            }
+        ]
+    }
+}

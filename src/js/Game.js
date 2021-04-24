@@ -24,8 +24,8 @@ export default class Game extends Phaser.Game {
                 matter : {
                     debug  : config.DEBUG,
                     gravity: {
-                        y: 0
-                    }
+                        y: 0,
+                    },
                 },
             },
             scene: [PreloadScene, MenuScene, MainScene],

@@ -19,7 +19,7 @@ export default class PreloadScene extends Phaser.Scene {
 
         // Sprite sheets
         this.load.spritesheet('fullscreen', '../assets/images/fullscreen-white.png', { frameWidth: 64, frameHeight: 64 });
-        this.load.spritesheet('propeller', '../assets/images/Sub-Prop-sprite-sheet.png', { frameWidth: 56, frameHeight: 26 })
+        this.load.spritesheet('propeller', '../assets/images/Sub-Prop-sprite-sheet.png', { frameWidth: 56, frameHeight: 26 });
 
         // Physics shapes
         this.load.json('shapes', 'assets/json/shapes.json');
@@ -32,11 +32,11 @@ export default class PreloadScene extends Phaser.Scene {
         consola.success('Game loaded');
 
         // Create animations
-        let config = {
-            key: 'propellerAnimation',
-            frames: this.anims.generateFrameNumbers('propeller', {start: 0, end: 3, first: 0}),
+        const config = {
+            key      : 'propellerAnimation',
+            frames   : this.anims.generateFrameNumbers('propeller', { start: 0, end: 3, first: 0 }),
             frameRate: 20,
-            repeat: -1
+            repeat   : -1,
         };
 
         this.anims.create(config);
