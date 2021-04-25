@@ -47,7 +47,7 @@ export default class PreloadScene extends Phaser.Scene {
 
         const glowFishAnimConfig = {
             key      : 'glowFishAnimation',
-            frames   : this.anims.generateFrameNumbers('glow-fish', { start: 0, end: 31, first: 0 }),
+            frames   : this.anims.generateFrameNumbers('glow-fish', { start: 0, end: 30, first: 0 }),
             frameRate: 20,
             repeat   : -1,
         };
@@ -55,7 +55,7 @@ export default class PreloadScene extends Phaser.Scene {
 
         const bubblesAnimConfig = {
             key      : 'bubblesAnimation',
-            frames   : this.anims.generateFrameNumbers('bubbles', { start: 0, end: 31, first: 0 }),
+            frames   : this.anims.generateFrameNumbers('bubbles', { start: 0, end: 30, first: 0 }),
             frameRate: 20,
             repeat   : -1,
         };

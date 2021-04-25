@@ -9,6 +9,8 @@ const config = {
     THRUST_POWER    : 0.00085,
     LIGHTS_ALWAYS_ON: true,
     SKY_HEIGHT      : 100,
+    GRAVITY     : .75,
+    DISABLE_SOUNDS : false,
 };
 
 if (ENV === 'dev') {
