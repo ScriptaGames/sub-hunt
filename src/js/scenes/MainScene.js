@@ -23,7 +23,8 @@ export default class MainScene extends Phaser.Scene {
         const shapes = this.cache.json.get('shapes');
         this.matter.world.setBounds(0, 0, config.WORLD_WIDTH, config.WORLD_HEIGHT);
 
-        const ground = this.matter.add.sprite(0, 0, 'ground-image', null, { shape: shapes.Trenches_render });
+        const ground = this.matter.add.sprite(0, 0, 'ground-image', null,
+            { shape: shapes.Trenches_Corrected_spaced });
         ground.setPosition(1000 + ground.centerOfMass.x, 1950 + ground.centerOfMass.y);
         ground.setPipeline('Light2D');
 
@@ -51,6 +52,9 @@ export default class MainScene extends Phaser.Scene {
             glowFish.setScale(0.25, 0.25);
             glowFish.setPipeline('Light2D');
         }
+
+        // Place Shipwreck and loot
+        this.createShipwreckLoot();
 
         // Collision checks
         this.matter.world.on('collisionstart', (event, a, b) => {
@@ -111,5 +115,10 @@ export default class MainScene extends Phaser.Scene {
             maxDarkDepth, subDepth);
         const newAmbientNumber = Phaser.Display.Color.ValueToColor(newAmbient).color;
         this.lights.setAmbientColor(newAmbientNumber);
+    }
+
+    createShipwreckLoot() {
+        const wreckImage = this.add.image(500, 500, 'wreck-image');
+        wreckImage.setScale(0.5, 0.5);
     }
 }

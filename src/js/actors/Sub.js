@@ -101,16 +101,10 @@ export default class Sub extends Phaser.GameObjects.GameObject {
 
     flipX(direction) {
         if (direction === 'left') {
-            this.subMatterContainer.list.forEach((child) => {
-                child.flipX = false;
-            });
-            this.propSprite.x = 82;
+            this.subMatterContainer.setScale(0.5, 0.5);
         }
         else if (direction === 'right') {
-            this.subMatterContainer.list.forEach((child) => {
-                child.flipX = true;
-            });
-            this.propSprite.x = -125;
+            this.subMatterContainer.setScale(-0.5, 0.5);
         }
     }
 }
