@@ -14,9 +14,9 @@ export default class PreloadScene extends Phaser.Scene {
         consola.trace('Loading assets..');
 
         // Static images
-        // this.load.image('ground-image', '../assets/images/Trenches_render.png');
         this.load.image('ground-image', '../assets/images/ground.png');
         this.load.image('sub-image', '../assets/images/Sub-Base.png');
+        this.load.image('sub-loot', '../assets/images/Sub_Loot.png');
         this.load.image('wreck-image', '../assets/images/Shipwreck.png');
         this.load.image('loot-image', '../assets/images/Loot.png');
 

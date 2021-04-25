@@ -25,11 +25,11 @@ export default class MainScene extends Phaser.Scene {
         sky.fillRect(0, 0, config.WORLD_WIDTH, config.SKY_HEIGHT);
 
         // Add the Actors to the scene
-        const shapes = this.cache.json.get('shapes');
+        this.shapes = this.cache.json.get('shapes');
         this.matter.world.setBounds(0, 0, config.WORLD_WIDTH, config.WORLD_HEIGHT);
 
         const ground = this.matter.add.sprite(0, 0, 'ground-image', null,
-            { shape: shapes.ground });
+            { shape: this.shapes.ground });
 
         this.bubbles = [];
         for (let i = 0; i < 10; i++) {
@@ -58,7 +58,7 @@ export default class MainScene extends Phaser.Scene {
                 key: 'propeller',
             },
             pos     : { x: 1500, y: 300 },
-            subShape: shapes.Sub_Base,
+            subShape: this.shapes.Sub_Base,
         });
 
         this.glowFishGroup = this.matter.world.nextGroup(true);
@@ -90,6 +90,12 @@ export default class MainScene extends Phaser.Scene {
                 else {
                     b.gameObject.destroy();
                 }
+            }
+            else if (a.parent.label === 'loot') {
+                this.collectLoot(a);
+            }
+            else if (b.parent.label === 'loot') {
+                this.collectLoot(b);
             }
         });
 
@@ -178,7 +184,22 @@ export default class MainScene extends Phaser.Scene {
     }
 
     createShipwreckLoot() {
-        const wreckImage = this.add.image(500, 500, 'wreck-image');
+        const lootImage = this.matter.add.image(315, 2880, 'loot-image', null,
+            { shape: this.shapes.Loot, label: 'loot' });
+
+        lootImage.setScale(0.5, 0.5);
+        lootImage.setPipeline('Light2D');
+
+        const wreckImage = this.add.image(275, 2880, 'wreck-image');
         wreckImage.setScale(0.5, 0.5);
+        wreckImage.setPipeline('Light2D');
+    }
+
+    collectLoot(loot) {
+        // remove loot from scene
+        loot.gameObject.destroy();
+
+        // Update sub
+        this.sub.collectLoot();
     }
 }

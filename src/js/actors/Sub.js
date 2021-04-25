@@ -30,6 +30,8 @@ export default class Sub extends Phaser.GameObjects.GameObject {
 
         this.lightChargeLevel = 1.0;
 
+        this.hasLoot = false;
+
         config.scene.time.addEvent({
             delay        : 1000,
             loop         : true,
@@ -111,5 +113,11 @@ export default class Sub extends Phaser.GameObjects.GameObject {
         else if (direction === 'right') {
             this.subMatterContainer.setScale(-0.5, 0.5);
         }
+    }
+
+    collectLoot() {
+        // change texture and body shape
+        this.subSprite.setTexture('sub-loot');
+        this.hasLoot = true;
     }
 }
