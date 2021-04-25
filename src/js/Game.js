@@ -6,7 +6,6 @@ import config from './config';
 import PreloadScene from 'scenes/PreloadScene';
 import MainScene from 'scenes/MainScene';
 import MenuScene from 'scenes/MenuScene';
-import LightingScene from 'scenes/LightingScene';
 
 export default class Game extends Phaser.Game {
 
@@ -29,7 +28,7 @@ export default class Game extends Phaser.Game {
                     },
                 },
             },
-            scene: [PreloadScene, MenuScene, MainScene, LightingScene],
+            scene: [PreloadScene, MenuScene, MainScene],
         };
 
         super(gameConfig);
