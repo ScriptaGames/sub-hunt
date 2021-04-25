@@ -73,5 +73,20 @@ export default class MainScene extends Phaser.Scene {
 
     update() {
         this.sub.update(this.keys);
+
+        this.setAmbientColor();
+    }
+
+    setAmbientColor() {
+        const lightAmbient = Phaser.Display.Color.HexStringToColor('0xaaaaaa');
+        const darkAmbient = Phaser.Display.Color.HexStringToColor('0x0');
+
+        const maxDarkDepth = 2500;
+        const subDepth = Phaser.Math.Clamp(this.sub.subMatterContainer.y, 0, maxDarkDepth);
+
+        const newAmbient = Phaser.Display.Color.Interpolate.ColorWithColor(lightAmbient, darkAmbient,
+            maxDarkDepth, subDepth);
+        const newAmbientNumber = Phaser.Display.Color.ValueToColor(newAmbient).color;
+        this.lights.setAmbientColor(newAmbientNumber);
     }
 }
