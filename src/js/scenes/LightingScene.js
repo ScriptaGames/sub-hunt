@@ -33,16 +33,16 @@ export default class LightingScene extends Phaser.Scene {
         this.lights.enable().setAmbientColor(0xaaaaaa);
         this.sub = new Sub({
             scene: this,
-            x: 300,
-            y: 300,
-            key: 'sub'
+            x    : 300,
+            y    : 300,
+            key  : 'sub-image',
         });
         this.sub.setPipeline('Light2D');
 
         this.time.addEvent({
-            delay: 1000,
-            loop: true,
-            callback: this.changeDarkness,
+            delay        : 1000,
+            loop         : true,
+            callback     : this.changeDarkness,
             callbackScope: this,
         });
     }
