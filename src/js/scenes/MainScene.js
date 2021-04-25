@@ -45,7 +45,7 @@ export default class MainScene extends Phaser.Scene {
             callbackScope: this,
         });
 
-        ground.setPosition(976 + ground.centerOfMass.x, 1820 + ground.centerOfMass.y);
+        ground.setPosition(975 + ground.centerOfMass.x, 1820 + ground.centerOfMass.y);
         ground.setPipeline('Light2D');
 
         this.sub = new Sub({
