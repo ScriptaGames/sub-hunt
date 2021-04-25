@@ -1,4 +1,5 @@
-const consola = require('consola').withTag('UIScene');
+/* global Phaser */
+// const consola = require('consola').withTag('UIScene');
 
 export default class UIScene extends Phaser.Scene {
     constructor() {

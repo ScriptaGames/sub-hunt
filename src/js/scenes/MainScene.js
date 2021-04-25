@@ -4,7 +4,7 @@ const consola = require('consola').withTag('MainScene');
 import config from '../config';
 
 import Sub from '../actors/Sub';
-import GlowFish from '../actors/GlowFish';
+// import GlowFish from '../actors/GlowFish';
 
 export default class MainScene extends Phaser.Scene {
 
@@ -37,18 +37,18 @@ export default class MainScene extends Phaser.Scene {
             callback     : this.generateBubbles,
             callbackScope: this,
         });
-        
+
         ground.setPosition(1000 + ground.centerOfMass.x, 1950 + ground.centerOfMass.y);
         ground.setPipeline('Light2D');
 
         this.sub = new Sub({
-            scene   : this,
-            sub     : {
+            scene: this,
+            sub  : {
                 x  : -22,
                 y  : -20,
                 key: 'sub-image',
             },
-            prop    : {
+            prop: {
                 x  : 82,
                 y  : 36,
                 key: 'propeller',
