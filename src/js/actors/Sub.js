@@ -1,3 +1,5 @@
+/* global Phaser */
+
 import config from '../config';
 
 const consola = require('consola').withTag('Sub');
@@ -55,12 +57,14 @@ export default class Sub extends Phaser.GameObjects.GameObject {
         }
         if (keys.A.isDown) {
             this.subMatterContainer.thrustBack(config.THRUST_POWER);
+            this.flipX('left');
         }
         if (keys.S.isDown) {
             this.subMatterContainer.thrustRight(config.THRUST_POWER);
         }
         if (keys.D.isDown) {
             this.subMatterContainer.thrust(config.THRUST_POWER);
+            this.flipX('right');
         }
         const lerpRotation = Phaser.Math.Linear(this.subMatterContainer.rotation, 0, 0.2);
 
@@ -93,5 +97,20 @@ export default class Sub extends Phaser.GameObjects.GameObject {
         consola.info('picked up glowfish');
         this.lightChargeLevel = Phaser.Math.Clamp(this.lightChargeLevel + .3, 0, 1);
         this.scene.events.emit('lightChargeChanged', this.lightChargeLevel);
+    }
+
+    flipX(direction) {
+        if (direction === 'left') {
+            this.subMatterContainer.list.forEach((child) => {
+                child.flipX = false;
+            });
+            this.propSprite.x = 82;
+        }
+        else if (direction === 'right') {
+            this.subMatterContainer.list.forEach((child) => {
+                child.flipX = true;
+            });
+            this.propSprite.x = -125;
+        }
     }
 }
