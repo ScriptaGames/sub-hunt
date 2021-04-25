@@ -43,6 +43,29 @@ export default class MainScene extends Phaser.Scene {
             subShape: shapes.Sub_Base,
         });
 
+        const glowFishGroup = this.matter.world.nextGroup(true);
+        for (let i = 0; i < 10; i++) {
+            const x = Phaser.Math.Between(200, 1500);
+            const y = Phaser.Math.Between(20, 150);
+            const glowFish = this.matter.add.sprite(x, y, 'glow-fish').setCollisionGroup(glowFishGroup);
+            glowFish.setScale(0.25, 0.25);
+            glowFish.setPipeline('Light2D');
+        }
+
+        // Collision checks
+        this.matter.world.on('collisionstart', (event, a, b) => {
+            if ((a.gameObject === this.sub.subMatterContainer && b.collisionFilter.group === glowFishGroup) ||
+                (b.gameObject === this.sub.subMatterContainer && a.collisionFilter.group === glowFishGroup)) {
+                this.sub.pickupGlowFish();
+                if (a.collisionFilter.group === glowFishGroup) {
+                    a.gameObject.destroy();
+                }
+                else {
+                    b.gameObject.destroy();
+                }
+            }
+        });
+
         // Set up the camera
         this.cameras.main.setBounds(0, 0, config.WORLD_WIDTH, config.WORLD_HEIGHT);
         this.cameras.main.startFollow(this.sub.subMatterContainer, false, 0.05, 0.05);
