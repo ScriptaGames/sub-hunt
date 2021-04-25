@@ -109,7 +109,9 @@ export default class MainScene extends Phaser.Scene {
         // }, this);
 
         this.input.on('pointerdown', (pointer) => {
-            this.sub.toggleLights();
+            if (!this.sub.isDead()) {
+                this.sub.toggleLights();
+            }
         });
 
         this.keys = this.input.keyboard.addKeys('W,S,A,D');

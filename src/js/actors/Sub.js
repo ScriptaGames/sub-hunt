@@ -98,9 +98,15 @@ export default class Sub extends Phaser.GameObjects.GameObject {
     toggleLights() {
         if (!this.lightIsOn() && this.lightChargeLevel > 0) {
             this.light.setRadius(300);
+            if (!this.isDead()) {
+                this.scene.events.emit('lightsOn');
+            }
         }
         else {
             this.light.setEmpty();
+            if (!this.isDead()) {
+                this.scene.events.emit('lightsOff');
+            }
         }
     }
 
