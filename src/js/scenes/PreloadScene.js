@@ -20,7 +20,8 @@ export default class PreloadScene extends Phaser.Scene {
         // Sprite sheets
         this.load.spritesheet('fullscreen', '../assets/images/fullscreen-white.png', { frameWidth: 64, frameHeight: 64 });
         this.load.spritesheet('propeller', '../assets/images/Sub-Prop-sprite-sheet.png', { frameWidth: 56, frameHeight: 26 });
-        this.load.spritesheet('glow-fish', '../assets/images/Glow_Fish_Animated-Spritesheet.png', { frameWidth: 200, frameHeight: 114 });
+        this.load.spritesheet('glow-fish', '../assets/images/Glow_Fish_Animated-Spritesheet.png', { frameWidth: 220, frameHeight: 114 });
+        this.load.spritesheet('bubbles', '../assets/images/Bubbles Spritesheet.png', { frameWidth: 154, frameHeight: 300 });
 
         // Physics shapes
         this.load.json('shapes', 'assets/json/shapes.json');
@@ -48,6 +49,14 @@ export default class PreloadScene extends Phaser.Scene {
             repeat   : -1,
         };
         this.anims.create(glowFishAnimConfig);
+
+        const bubblesAnimConfig = {
+            key      : 'bubblesAnimation',
+            frames   : this.anims.generateFrameNumbers('bubbles', { start: 0, end: 31, first: 0 }),
+            frameRate: 20,
+            repeat   : -1,
+        };
+        this.anims.create(bubblesAnimConfig);
 
         this.scene.start('MenuScene');
     }

@@ -4,6 +4,7 @@ const consola = require('consola').withTag('MainScene');
 import config from '../config';
 
 import Sub from '../actors/Sub';
+import GlowFish from '../actors/GlowFish';
 
 export default class MainScene extends Phaser.Scene {
 
@@ -23,18 +24,29 @@ export default class MainScene extends Phaser.Scene {
         const shapes = this.cache.json.get('shapes');
         this.matter.world.setBounds(0, 0, config.WORLD_WIDTH, config.WORLD_HEIGHT);
 
+        this.bubbles = [];
+        for (let i = 0; i < 10; i++) {
+            this.generateBubbles(200, 1800, 200, 1000);
+        }
+        this.time.addEvent({
+            delay        : 2000,
+            loop         : true,
+            callback     : this.generateBubbles,
+            callbackScope: this,
+        });
+
         const ground = this.matter.add.sprite(0, 0, 'ground-image', null, { shape: shapes.Trenches_render });
         ground.setPosition(1000 + ground.centerOfMass.x, 1950 + ground.centerOfMass.y);
         ground.setPipeline('Light2D');
 
         this.sub = new Sub({
-            scene: this,
-            sub  : {
+            scene   : this,
+            sub     : {
                 x  : -22,
                 y  : -20,
                 key: 'sub-image',
             },
-            prop: {
+            prop    : {
                 x  : 82,
                 y  : 36,
                 key: 'propeller',
@@ -43,21 +55,27 @@ export default class MainScene extends Phaser.Scene {
             subShape: shapes.Sub_Base,
         });
 
-        const glowFishGroup = this.matter.world.nextGroup(true);
+        this.glowFishGroup = this.matter.world.nextGroup(true);
         for (let i = 0; i < 10; i++) {
             const x = Phaser.Math.Between(200, 1500);
             const y = Phaser.Math.Between(20, 150);
-            const glowFish = this.matter.add.sprite(x, y, 'glow-fish').setCollisionGroup(glowFishGroup);
+            const startFrame = Phaser.Math.Between(0, 30);
+            const glowFish = this.matter.add.sprite(x, y, 'glow-fish').play({ key: 'glowFishAnimation', startFrame });
+            glowFish.setCollisionGroup(this.glowFishGroup);
             glowFish.setScale(0.25, 0.25);
             glowFish.setPipeline('Light2D');
+            glowFish.directionX = Phaser.Math.Between(-1, 1);
+            if (glowFish.directionX === 0) {
+                glowFish.directionX = -1;
+            }
         }
 
         // Collision checks
         this.matter.world.on('collisionstart', (event, a, b) => {
-            if ((a.gameObject === this.sub.subMatterContainer && b.collisionFilter.group === glowFishGroup) ||
-                (b.gameObject === this.sub.subMatterContainer && a.collisionFilter.group === glowFishGroup)) {
+            if ((a.gameObject === this.sub.subMatterContainer && b.collisionFilter.group === this.glowFishGroup) ||
+                (b.gameObject === this.sub.subMatterContainer && a.collisionFilter.group === this.glowFishGroup)) {
                 this.sub.pickupGlowFish();
-                if (a.collisionFilter.group === glowFishGroup) {
+                if (a.collisionFilter.group === this.glowFishGroup) {
                     a.gameObject.destroy();
                 }
                 else {
@@ -69,6 +87,7 @@ export default class MainScene extends Phaser.Scene {
         // Set up the camera
         this.cameras.main.setBounds(0, 0, config.WORLD_WIDTH, config.WORLD_HEIGHT);
         this.cameras.main.startFollow(this.sub.subMatterContainer, false, 0.05, 0.05);
+        this.cameras.main.setBackgroundColor(0x004080);
 
         // Fullscreen button
         // TODO: Add this in the right position
@@ -94,14 +113,48 @@ export default class MainScene extends Phaser.Scene {
         this.keys = this.input.keyboard.addKeys('W,S,A,D');
     }
 
-    update() {
+    generateBubbles(minX = 200, maxX = 1800, minY = 2000, maxY = 3000) {
+        const x = Phaser.Math.Between(minX, maxX);
+        const y = Phaser.Math.Between(minY, maxY);
+
+        const frameRate = Phaser.Math.Between(5, 30);
+        const bubble = this.add.sprite(x, y, 'bubbles').play({ key: 'bubblesAnimation', frameRate });
+        bubble.setScale(.25, .25);
+        bubble.setPipeline('Light2D');
+        bubble.tint = 0x001a33;
+        this.bubbles.push(bubble);
+    }
+
+    update(time, delta) {
         this.sub.update(this.keys);
 
         this.setAmbientColor();
+
+        this.bubbles.forEach((bubble, index, object) => {
+            bubble.y -= 50 * delta / 1000;
+            if (bubble.y < 0) {
+                bubble.destroy();
+                object.splice(index, 1);
+            }
+        });
+
+        this.matter.world.getAllBodies().forEach((body) => {
+            if (body.collisionFilter.group === this.glowFishGroup) {
+                body.gameObject.setVelocityX(.5 * body.gameObject.directionX);
+                body.gameObject.flipX = body.gameObject.directionX < 0;
+
+                if (body.gameObject.x < 100) {
+                    body.gameObject.directionX = 1;
+                }
+                else if (body.gameObject.x > 1800) {
+                    body.gameObject.directionX = -1;
+                }
+            }
+        });
     }
 
     setAmbientColor() {
-        const lightAmbient = Phaser.Display.Color.HexStringToColor('0xaaaaaa');
+        const lightAmbient = Phaser.Display.Color.HexStringToColor('0x0066cc');
         const darkAmbient = Phaser.Display.Color.HexStringToColor('0x0');
 
         const maxDarkDepth = 2500;
@@ -111,5 +164,6 @@ export default class MainScene extends Phaser.Scene {
             maxDarkDepth, subDepth);
         const newAmbientNumber = Phaser.Display.Color.ValueToColor(newAmbient).color;
         this.lights.setAmbientColor(newAmbientNumber);
+        this.cameras.main.setBackgroundColor(newAmbient);
     }
 }
