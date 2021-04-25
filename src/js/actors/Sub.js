@@ -52,7 +52,8 @@ export default class Sub extends Phaser.GameObjects.GameObject {
     }
 
     update(keys) {
-        if (keys.W.isDown) {
+        const atSurface = this.subMatterContainer.y < config.SKY_HEIGHT + this.subSprite.height / 2;
+        if (keys.W.isDown && !atSurface) {
             this.subMatterContainer.thrustLeft(config.THRUST_POWER);
         }
         if (keys.A.isDown) {
@@ -69,6 +70,10 @@ export default class Sub extends Phaser.GameObjects.GameObject {
         const lerpRotation = Phaser.Math.Linear(this.subMatterContainer.rotation, 0, 0.2);
 
         this.subMatterContainer.setRotation(lerpRotation);
+
+        if (atSurface) {
+            this.subMatterContainer.y = config.SKY_HEIGHT + this.subSprite.height / 2;
+        }
 
         this.light.x = this.lightLocation.x + this.subMatterContainer.x;
         this.light.y = this.lightLocation.y + this.subMatterContainer.y;

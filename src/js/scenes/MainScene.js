@@ -20,6 +20,10 @@ export default class MainScene extends Phaser.Scene {
 
         this.lights.enable().setAmbientColor(0x111111);
 
+        const sky = this.add.graphics();
+        sky.fillStyle(0x99ccff);
+        sky.fillRect(0, 0, config.WORLD_WIDTH, config.SKY_HEIGHT);
+
         // Add the Actors to the scene
         const shapes = this.cache.json.get('shapes');
         this.matter.world.setBounds(0, 0, config.WORLD_WIDTH, config.WORLD_HEIGHT);
@@ -60,7 +64,7 @@ export default class MainScene extends Phaser.Scene {
         this.glowFishGroup = this.matter.world.nextGroup(true);
         for (let i = 0; i < 10; i++) {
             const x = Phaser.Math.Between(200, 1500);
-            const y = Phaser.Math.Between(20, 150);
+            const y = Phaser.Math.Between(config.SKY_HEIGHT + 50, 300);
             const startFrame = Phaser.Math.Between(0, 30);
             const glowFish = this.matter.add.sprite(x, y, 'glow-fish').play({ key: 'glowFishAnimation', startFrame });
             glowFish.setCollisionGroup(this.glowFishGroup);
@@ -126,6 +130,7 @@ export default class MainScene extends Phaser.Scene {
         const bubble = this.add.sprite(x, y, 'bubbles').play({ key: 'bubblesAnimation', frameRate });
         bubble.setScale(.25, .25);
         bubble.setPipeline('Light2D');
+        bubble.setOrigin(0, 0);
         bubble.tint = 0x001a33;
         this.bubbles.push(bubble);
     }
@@ -137,7 +142,7 @@ export default class MainScene extends Phaser.Scene {
 
         this.bubbles.forEach((bubble, index, object) => {
             bubble.y -= 50 * delta / 1000;
-            if (bubble.y < 0) {
+            if (bubble.y < config.SKY_HEIGHT) {
                 bubble.destroy();
                 object.splice(index, 1);
             }

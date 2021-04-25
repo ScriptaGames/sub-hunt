@@ -8,6 +8,7 @@ const config = {
     DEBUG       : false,
     THRUST_POWER: 0.00085,
     LIGHTS_ALWAYS_ON: true,
+    SKY_HEIGHT  : 200,
 };
 
 if (ENV === 'dev') {
