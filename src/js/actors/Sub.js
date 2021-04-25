@@ -29,6 +29,7 @@ export default class Sub extends Phaser.GameObjects.GameObject {
         this.lightColor = 0xffffff;
 
         this.lightChargeLevel = 1.0;
+        this.health = 1.0;
 
         config.scene.time.addEvent({
             delay        : 1000,
@@ -52,27 +53,29 @@ export default class Sub extends Phaser.GameObjects.GameObject {
     }
 
     update(keys) {
-        const atSurface = this.subMatterContainer.y < config.SKY_HEIGHT + this.subSprite.height / 2;
-        if (keys.W.isDown && !atSurface) {
-            this.subMatterContainer.thrustLeft(config.THRUST_POWER);
-        }
-        if (keys.A.isDown) {
-            this.subMatterContainer.thrustBack(config.THRUST_POWER);
-            this.flipX('left');
-        }
-        if (keys.S.isDown) {
-            this.subMatterContainer.thrustRight(config.THRUST_POWER);
-        }
-        if (keys.D.isDown) {
-            this.subMatterContainer.thrust(config.THRUST_POWER);
-            this.flipX('right');
-        }
-        const lerpRotation = Phaser.Math.Linear(this.subMatterContainer.rotation, 0, 0.2);
+        if (!this.isDead()) {
+            const atSurface = this.subMatterContainer.y < config.SKY_HEIGHT + this.subSprite.height / 2;
+            if (keys.W.isDown && !atSurface) {
+                this.subMatterContainer.thrustLeft(config.THRUST_POWER);
+            }
+            if (keys.A.isDown) {
+                this.subMatterContainer.thrustBack(config.THRUST_POWER);
+                this.flipX('left');
+            }
+            if (keys.S.isDown) {
+                this.subMatterContainer.thrustRight(config.THRUST_POWER);
+            }
+            if (keys.D.isDown) {
+                this.subMatterContainer.thrust(config.THRUST_POWER);
+                this.flipX('right');
+            }
+            const lerpRotation = Phaser.Math.Linear(this.subMatterContainer.rotation, 0, 0.2);
 
-        this.subMatterContainer.setRotation(lerpRotation);
+            this.subMatterContainer.setRotation(lerpRotation);
 
-        if (atSurface) {
-            this.subMatterContainer.y = config.SKY_HEIGHT + this.subSprite.height / 2;
+            if (atSurface) {
+                this.subMatterContainer.y = config.SKY_HEIGHT + this.subSprite.height / 2;
+            }
         }
 
         this.light.x = this.lightLocation.x + this.subMatterContainer.x;
@@ -102,6 +105,19 @@ export default class Sub extends Phaser.GameObjects.GameObject {
         consola.info('picked up glowfish');
         this.lightChargeLevel = Phaser.Math.Clamp(this.lightChargeLevel + .3, 0, 1);
         this.scene.events.emit('lightChargeChanged', this.lightChargeLevel);
+    }
+
+    takeDamage(amount) {
+        this.health = Phaser.Math.Clamp(this.health - amount, 0, 1);
+        this.scene.events.emit('healthChanged', this.health);
+        if (this.health === 0) {
+            consola.info('dead');
+            this.propSprite.anims.stop();
+        }
+    }
+
+    isDead() {
+        return this.health === 0;
     }
 
     flipX(direction) {

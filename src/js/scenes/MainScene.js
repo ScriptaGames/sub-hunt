@@ -18,6 +18,8 @@ export default class MainScene extends Phaser.Scene {
     create() {
         consola.info('Create');
 
+        this.scene.setVisible(true, 'UIScene');
+
         this.lights.enable().setAmbientColor(0x111111);
 
         const sky = this.add.graphics();
@@ -28,8 +30,9 @@ export default class MainScene extends Phaser.Scene {
         const shapes = this.cache.json.get('shapes');
         this.matter.world.setBounds(0, 0, config.WORLD_WIDTH, config.WORLD_HEIGHT);
 
+        this.groundGroup = this.matter.world.nextGroup();
         const ground = this.matter.add.sprite(0, 0, 'ground-image', null,
-            { shape: shapes.ground });
+            { shape: shapes.ground }).setCollisionGroup(this.groundGroup);
 
         this.bubbles = [];
         for (let i = 0; i < 10; i++) {
@@ -71,6 +74,7 @@ export default class MainScene extends Phaser.Scene {
             glowFish.setScale(0.25, 0.25);
             glowFish.setPipeline('Light2D');
             glowFish.directionX = Phaser.Math.Between(-1, 1);
+            glowFish.setIgnoreGravity(true);
             if (glowFish.directionX === 0) {
                 glowFish.directionX = -1;
             }
@@ -80,18 +84,7 @@ export default class MainScene extends Phaser.Scene {
         this.createShipwreckLoot();
 
         // Collision checks
-        this.matter.world.on('collisionstart', (event, a, b) => {
-            if ((a.gameObject === this.sub.subMatterContainer && b.collisionFilter.group === this.glowFishGroup) ||
-                (b.gameObject === this.sub.subMatterContainer && a.collisionFilter.group === this.glowFishGroup)) {
-                this.sub.pickupGlowFish();
-                if (a.collisionFilter.group === this.glowFishGroup) {
-                    a.gameObject.destroy();
-                }
-                else {
-                    b.gameObject.destroy();
-                }
-            }
-        });
+        this.collisionChecks();
 
         // Set up the camera
         this.cameras.main.setBounds(0, 0, config.WORLD_WIDTH, config.WORLD_HEIGHT);
@@ -120,6 +113,38 @@ export default class MainScene extends Phaser.Scene {
         });
 
         this.keys = this.input.keyboard.addKeys('W,S,A,D');
+    }
+
+    collisionChecks() {
+        this.matter.world.on('collisionstart', (event, a, b) => {
+            let subObj = null;
+            let otherObj = null;
+            if (a.gameObject === this.sub.subMatterContainer) {
+                subObj = a;
+                otherObj = b;
+            }
+            else if (b.gameObject === this.sub.subMatterContainer) {
+                subObj = b;
+                otherObj = a;
+            }
+
+            if (subObj && !this.sub.isDead() && otherObj) {
+                if (otherObj.collisionFilter.group === this.glowFishGroup) {
+                    this.sub.pickupGlowFish();
+                    otherObj.gameObject.destroy();
+                }
+                else if (otherObj.collisionFilter.group === 0) {
+                    consola.info('collided with ground');
+                    this.sub.takeDamage(.5);
+                    if (this.sub.isDead()) {
+                        this.matter.world.setGravity(0, config.GRAVITY);
+                    }
+                }
+                else {
+                    consola.info('unknown collision: ' + otherObj.collisionFilter.group);
+                }
+            }
+        });
     }
 
     generateBubbles(minX = 200, maxX = 1800, minY = 2000, maxY = 3000) {
