@@ -4,9 +4,10 @@ const config = {
     GAME_WIDTH  : 1024,
     GAME_HEIGHT : 576,
     WORLD_WIDTH : 2000,
-    WORLD_HEIGHT: 3200,
+    WORLD_HEIGHT: 3000,
     DEBUG       : false,
     THRUST_POWER: 0.00085,
+    LIGHTS_ALWAYS_ON: true,
 };
 
 if (ENV === 'dev') {

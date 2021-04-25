@@ -41,7 +41,7 @@ export default class Sub extends Phaser.GameObjects.GameObject {
     }
 
     lightPowerTick() {
-        if (this.lightIsOn()) {
+        if (this.lightIsOn() && !config.LIGHTS_ALWAYS_ON) {
             this.lightChargeLevel = Phaser.Math.Clamp(this.lightChargeLevel - .1, 0, 1);
             if (this.lightChargeLevel === 0) {
                 consola.info('out of power');

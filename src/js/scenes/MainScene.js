@@ -25,7 +25,7 @@ export default class MainScene extends Phaser.Scene {
         this.matter.world.setBounds(0, 0, config.WORLD_WIDTH, config.WORLD_HEIGHT);
 
         const ground = this.matter.add.sprite(0, 0, 'ground-image', null,
-            { shape: shapes.Trenches_Corrected_spaced });
+            { shape: shapes.ground });
 
         this.bubbles = [];
         for (let i = 0; i < 10; i++) {
@@ -38,7 +38,7 @@ export default class MainScene extends Phaser.Scene {
             callbackScope: this,
         });
 
-        ground.setPosition(1000 + ground.centerOfMass.x, 1950 + ground.centerOfMass.y);
+        ground.setPosition(976 + ground.centerOfMass.x, 1820 + ground.centerOfMass.y);
         ground.setPipeline('Light2D');
 
         this.sub = new Sub({
