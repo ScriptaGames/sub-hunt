@@ -82,6 +82,19 @@ export default class Sub extends Phaser.GameObjects.GameObject {
         this.light.y = this.lightLocation.y + this.subMatterContainer.y;
     }
 
+    flickerLights() {
+        consola.info('flicker');
+        const delay = Phaser.Math.Between(100, 500);
+        this.scene.time.addEvent({
+            delay        : delay,
+            loop         : false,
+            callback     : this.flickerLights,
+            callbackScope: this,
+        });
+
+        this.toggleLights();
+    }
+
     toggleLights() {
         if (!this.lightIsOn() && this.lightChargeLevel > 0) {
             this.light.setRadius(300);

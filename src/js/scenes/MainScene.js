@@ -139,6 +139,7 @@ export default class MainScene extends Phaser.Scene {
                     if (this.sub.isDead()) {
                         this.matter.world.setGravity(0, config.GRAVITY);
                         this.scene.setVisible(true, 'GameOverScene');
+                        this.sub.flickerLights();
                     }
                 }
                 else {
