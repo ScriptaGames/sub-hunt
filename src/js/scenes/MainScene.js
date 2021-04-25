@@ -184,13 +184,34 @@ export default class MainScene extends Phaser.Scene {
     }
 
     createShipwreckLoot() {
-        const lootImage = this.matter.add.image(315, 2880, 'loot-image', null,
+        const spawnPositions = [
+            // Left
+            {
+                loot : { x: 315, y: 2880 },
+                wreck: { x: 275, y: 2880 },
+            },
+            // Center
+            {
+                loot : { x: 1045, y: 2870 },
+                wreck: { x: 1000, y: 2870 },
+            },
+            // Right
+            {
+                loot : { x: 1800, y: 2920 },
+                wreck: { x: 1760, y: 2920 },
+            },
+        ];
+
+        // Pick a random spawn point for the loot
+        const spawnPosition = spawnPositions[Phaser.Math.Between(0, 2)];
+
+        const lootImage = this.matter.add.image(spawnPosition.loot.x, spawnPosition.loot.y, 'loot-image', null,
             { shape: this.shapes.Loot, label: 'loot' });
 
         lootImage.setScale(0.5, 0.5);
         lootImage.setPipeline('Light2D');
 
-        const wreckImage = this.add.image(275, 2880, 'wreck-image');
+        const wreckImage = this.add.image(spawnPosition.wreck.x, spawnPosition.wreck.y, 'wreck-image');
         wreckImage.setScale(0.5, 0.5);
         wreckImage.setPipeline('Light2D');
     }
