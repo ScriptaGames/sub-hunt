@@ -212,8 +212,7 @@ export default class MainScene extends Phaser.Scene {
             this.sub.update(this.keys);
         }
 
-
-        if (this.sub.subMatterContainer.y > config.BOSS_REVEAL_DEPTH && !this.sub.lightIsOn()) {
+        if (this.sub.subMatterContainer.y > config.BOSS_REVEAL_DEPTH && !this.sub.lightIsOn() && !this.sub.isDead()) {
             this.boss.setReveal(true);
         }
         this.boss.update(delta);
