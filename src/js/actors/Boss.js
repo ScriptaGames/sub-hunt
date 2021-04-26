@@ -29,7 +29,7 @@ export default class Boss extends Phaser.GameObjects.GameObject {
         this.face.setVisible(false);
         this.face.setDepth(-100);
 
-        this.subSprite = config.scene.add.sprite(-10, -7, 'sub-image');
+        this.subSprite = config.scene.add.sprite(-10, -5, 'sub-image');
         this.subSprite.setDepth(1);
         this.subSprite.setVisible(false);
         this.subSprite.setScale(0.5);
