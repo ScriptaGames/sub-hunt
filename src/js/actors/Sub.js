@@ -192,15 +192,6 @@ export default class Sub extends Phaser.GameObjects.GameObject {
         this.subSprite.resetPipeline();
         this.propSprite.resetPipeline();
         this.propSprite.anims.stop();
-        this.subMatterContainer.y += 65;
-
-        this.scene.time.addEvent({
-            delay   : 500,
-            loop    : false,
-            callback: () => {
-                this.subMatterContainer.y -= 20;
-            },
-            callbackScope: this,
-        });
+        this.subMatterContainer.y = boss.bossContainer.y + 50;
     }
 }
