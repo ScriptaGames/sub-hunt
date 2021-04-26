@@ -46,7 +46,7 @@ export default class Sub extends Phaser.GameObjects.GameObject {
     }
 
     lightPowerTick() {
-        if (this.lightIsOn() && !config.LIGHTS_ALWAYS_ON) {
+        if (this.lightIsOn() && !config.LIGHTS_ALWAYS_ON && !this.isDead()) {
             this.lightChargeLevel = Phaser.Math.Clamp(this.lightChargeLevel - .1, 0, 1);
             if (this.lightChargeLevel === 0) {
                 consola.info('out of power');
@@ -122,6 +122,7 @@ export default class Sub extends Phaser.GameObjects.GameObject {
         consola.info('picked up glowfish');
         this.lightChargeLevel = Phaser.Math.Clamp(this.lightChargeLevel + .3, 0, 1);
         this.scene.events.emit('lightChargeChanged', this.lightChargeLevel);
+        this.scene.events.emit('pickupGlowFish');
     }
 
     takeDamage(amount) {

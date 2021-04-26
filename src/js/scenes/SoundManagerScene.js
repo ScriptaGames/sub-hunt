@@ -67,7 +67,7 @@ export default class SoundManagerScene extends Phaser.Scene {
             this.lightsOff.play();
         });
 
-        this.gameScene.events.on('lightChargeChanged', () => {
+        this.gameScene.events.on('pickupGlowFish', () => {
             this.swallow.play({ volume: 0.5 });
         });
 
