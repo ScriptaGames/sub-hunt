@@ -4,7 +4,7 @@ import config from '../config';
 
 export default class GameOverScene extends Phaser.Scene {
     constructor() {
-        super({ key: 'GameOverScene', active: true });
+        super({ key: 'GameOverScene' });
     }
 
     create() {

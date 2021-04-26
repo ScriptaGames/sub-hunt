@@ -67,6 +67,9 @@ export default class PreloadScene extends Phaser.Scene {
 
             // Activate sound manager now that all sound files have loaded
             this.scene.start('SoundManagerScene');
+
+            this.scene.start('VictoryScene');
+            this.scene.start('GameOverScene');
         });
 
         // Static images
