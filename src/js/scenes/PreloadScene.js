@@ -86,7 +86,7 @@ export default class PreloadScene extends Phaser.Scene {
         this.load.image('button-instructions-50-image', '../assets/images/button-instructions-50.png');
         this.load.image('button-letsgo-20-image', '../assets/images/button-letsgo-20.png');
         this.load.image('button-letsgo-50-image', '../assets/images/button-letsgo-50.png');
-        this.load.image('button-mute', '../assets/images/button-mute.png');
+        this.load.image('button-mute-image', '../assets/images/button-mute.png');
         this.load.image('button-unmute-image', '../assets/images/button-unmute.png');
         this.load.image('button-play-20-image', '../assets/images/button-play-20.png');
         this.load.image('button-play-50-image', '../assets/images/button-play-50.png');
