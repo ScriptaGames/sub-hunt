@@ -116,6 +116,7 @@ export default class Sub extends Phaser.GameObjects.GameObject {
         this.light = scene.lights.addLight(this.lightLocation.x + this.subMatterContainer.x,
             this.lightLocation.y + this.subMatterContainer.y, 300)
             .setColor(this.lightColor).setIntensity(5);
+        this.light.setEmpty();
     }
 
     pickupGlowFish() {
