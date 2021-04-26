@@ -119,7 +119,7 @@ export default class PreloadScene extends Phaser.Scene {
         this.load.audio('swallow', '../assets/sounds/swallow.mp3');
         this.load.audio('propeller', '../assets/sounds/propeller.mp3');
         this.load.audio('main-music', '../assets/sounds/ld48-ambient-play-music.mp3');
-        this.load.audio('menu-music', '../assets/sounds/ld48-title-page-music.mp3');
+        this.load.audio('menu-music', '../assets/sounds/music-title-page.mp3');
         this.load.audio('bubble1', '../assets/sounds/bubble1.mp3');
         this.load.audio('bubble2', '../assets/sounds/bubble2.mp3');
         this.load.audio('bubble3', '../assets/sounds/bubble3.mp3');
