@@ -6,25 +6,11 @@ const consola = require('consola').withTag('SoundManagerScene');
 
 export default class SoundManagerScene extends Phaser.Scene {
     constructor() {
-        super({ key: 'SoundManagerScene', active: true });
+        super({ key: 'SoundManagerScene' });
     }
 
     preload() {
-        this.load.audio('sub-crash', '../assets/sounds/sub-crash.mp3');
-        this.load.audio('lights-on', '../assets/sounds/lights-on.mp3');
-        this.load.audio('lights-off', '../assets/sounds/lights-off.mp3');
-        this.load.audio('swallow', '../assets/sounds/swallow.mp3');
-        this.load.audio('propeller', '../assets/sounds/propeller.mp3');
-        this.load.audio('main-music', '../assets/sounds/ld48-ambient-play-music.mp3');
-        this.load.audio('menu-music', '../assets/sounds/ld48-title-page-music.mp3');
-        this.load.audio('bubble1', '../assets/sounds/bubble1.mp3');
-        this.load.audio('bubble2', '../assets/sounds/bubble2.mp3');
-        this.load.audio('bubble3', '../assets/sounds/bubble3.mp3');
-        this.load.audio('whale', '../assets/sounds/whale.mp3');
-        this.load.audio('sea-creature1', '../assets/sounds/sea-creature1.mp3');
-        this.load.audio('sea-creature2', '../assets/sounds/sea-creature2.mp3');
-        this.load.audio('hungry-monster', '../assets/sounds/hungry-monster.mp3');
-        this.load.audio('sonar', '../assets/sounds/sonar-ping-short.mp3');
+        /* Sounds loaded in PreloadScene for progress bar */
     }
 
     create() {

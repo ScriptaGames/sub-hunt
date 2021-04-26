@@ -13,6 +13,62 @@ export default class PreloadScene extends Phaser.Scene {
     preload() {
         consola.trace('Loading assets..');
 
+        const width = config.GAME_WIDTH;
+        const height = config.GAME_HEIGHT;
+        const centerX = width / 2;
+        const centerY = height / 2;
+        const progressBarWidth = 320;
+        const progressBarHeight = 50;
+        const progressBarX = centerX - (progressBarWidth / 2);
+        const progressBarY = centerY - (progressBarHeight / 2);
+        const progressBar = this.add.graphics();
+        const progressBox = this.add.graphics();
+        progressBox.fillStyle(0x222222, 0.8);
+        progressBox.fillRect(progressBarX, progressBarY, progressBarWidth, progressBarHeight);
+
+        const loadingText = this.make.text({
+            x    : centerX,
+            y    : centerY - 50,
+            text : 'Loading...',
+            style: {
+                font: '20px monospace',
+                fill: '#ffffff',
+            },
+        });
+        loadingText.setOrigin(0.5, 0.5);
+
+        const percentText = this.make.text({
+            x    : centerX,
+            y    : centerY,
+            text : '0%',
+            style: {
+                font: '18px monospace',
+                fill: '#ffffff',
+            },
+        });
+        percentText.setOrigin(0.5, 0.5);
+
+        this.load.on('progress', (value) => {
+            const percent = parseInt(value * 100) + '%';
+            consola.log('Loading..', percent);
+            percentText.setText(percent);
+            progressBar.clear();
+            progressBar.fillStyle(0xffffff, 1);
+            progressBar.fillRect(progressBarX + 10, progressBarY + 10, (progressBarWidth - 20) * value,
+                progressBarHeight - 20);
+        });
+
+        this.load.on('complete', () => {
+            consola.log('Loading complete.');
+            progressBar.destroy();
+            progressBox.destroy();
+            loadingText.destroy();
+            percentText.destroy();
+
+            // Activate sound manager now that all sound files have loaded
+            this.scene.start('SoundManagerScene');
+        });
+
         // Static images
         this.load.image('ground-image', '../assets/images/ground.png');
         this.load.image('sub-image', '../assets/images/Sub-Base.png');
@@ -36,6 +92,23 @@ export default class PreloadScene extends Phaser.Scene {
 
         // Physics shapes
         this.load.json('shapes', 'assets/json/shapes.json');
+
+        // Load Sounds
+        this.load.audio('sub-crash', '../assets/sounds/sub-crash.mp3');
+        this.load.audio('lights-on', '../assets/sounds/lights-on.mp3');
+        this.load.audio('lights-off', '../assets/sounds/lights-off.mp3');
+        this.load.audio('swallow', '../assets/sounds/swallow.mp3');
+        this.load.audio('propeller', '../assets/sounds/propeller.mp3');
+        this.load.audio('main-music', '../assets/sounds/ld48-ambient-play-music.mp3');
+        this.load.audio('menu-music', '../assets/sounds/ld48-title-page-music.mp3');
+        this.load.audio('bubble1', '../assets/sounds/bubble1.mp3');
+        this.load.audio('bubble2', '../assets/sounds/bubble2.mp3');
+        this.load.audio('bubble3', '../assets/sounds/bubble3.mp3');
+        this.load.audio('whale', '../assets/sounds/whale.mp3');
+        this.load.audio('sea-creature1', '../assets/sounds/sea-creature1.mp3');
+        this.load.audio('sea-creature2', '../assets/sounds/sea-creature2.mp3');
+        this.load.audio('hungry-monster', '../assets/sounds/hungry-monster.mp3');
+        this.load.audio('sonar', '../assets/sounds/sonar-ping-short.mp3');
     }
 
     /**
