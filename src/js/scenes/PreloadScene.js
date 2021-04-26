@@ -113,7 +113,7 @@ export default class PreloadScene extends Phaser.Scene {
         this.load.json('shapes', 'assets/json/shapes.json');
 
         // Load Sounds
-        this.load.audio('sub-crash', '../assets/sounds/sub-crash.mp3');
+        this.load.audio('sub-crash', '../assets/sounds/hit-scrap.mp3');
         this.load.audio('lights-on', '../assets/sounds/lights-on.mp3');
         this.load.audio('lights-off', '../assets/sounds/lights-off.mp3');
         this.load.audio('swallow', '../assets/sounds/swallow.mp3');
