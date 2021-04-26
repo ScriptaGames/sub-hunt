@@ -14,6 +14,7 @@ const config = {
     DISABLE_SOUNDS   : false,
     BOSS_REVEAL_DEPTH: 2400,
     BOSS_REVEAL_TIME : 7,
+    FADE_DURATION    : 250,
 };
 
 if (ENV === 'dev') {

@@ -19,6 +19,7 @@ export default class MainScene extends Phaser.Scene {
 
     create() {
         consola.info('Create');
+        this.cameras.main.fadeIn(config.FADE_DURATION, 0, 0, 0);
 
         this.victory = false;
 

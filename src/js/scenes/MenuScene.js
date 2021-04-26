@@ -44,8 +44,11 @@ export default class MenuScene extends Phaser.Scene {
         });
 
         this.playButton.on('pointerup', () => {
-            this.events.emit('mainGameMusic');
-            this.scene.start('MainScene');
+            this.cameras.main.fadeOut(config.FADE_DURATION, 0, 0, 0);
+
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
+                this.scene.start('BackstoryScene');
+            });
         });
 
         // Instructions Button
