@@ -17,6 +17,8 @@ export default class PreloadScene extends Phaser.Scene {
         this.load.image('ground-image', '../assets/images/ground.png');
         this.load.image('sub-image', '../assets/images/Sub-Base.png');
         this.load.image('sub-loot-image', '../assets/images/Sub_Loot.png');
+        this.load.image('sub-damaged-image', '../assets/images/Sub-Base-damaged.png');
+        this.load.image('sub-loot-damaged-image', '../assets/images/Sub-Loot-damaged.png');
         this.load.image('wreck-image', '../assets/images/Shipwreck.png');
         this.load.image('loot-image', '../assets/images/Loot.png');
         this.load.image('barge-image', '../assets/images/Barge.png');
