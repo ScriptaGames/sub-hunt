@@ -19,15 +19,16 @@ export default class Boss extends Phaser.GameObjects.GameObject {
         this.trackSub = true;
 
         this.eyesSprite = config.scene.add.sprite(config.eyes.x, config.eyes.y, config.eyes.key);
-        this.eyesSprite.setScale(0.75);
+        // this.eyesSprite.setScale(2);
         this.eyesSprite.setVisible(false);
 
         this.face = config.scene.add.sprite(0, 0, 'boss-face');
-        this.face.setScale(0.75);
+        // this.face.setScale(2);
         this.face.setVisible(false);
+        this.face.setDepth(-1);
 
         this.teeth = config.scene.add.sprite(0, 0, 'boss-teeth');
-        this.teeth.setScale(0.75);
+        // this.teeth.setScale(2);
         this.teeth.setVisible(false);
 
         this.bossContainer = config.scene.add.container(config.x, config.y, [this.eyesSprite, this.face, this.teeth]);

@@ -40,9 +40,9 @@ export default class MainScene extends Phaser.Scene {
         this.shapes = this.cache.json.get('shapes');
         this.matter.world.setBounds(0, 0, config.WORLD_WIDTH, config.WORLD_HEIGHT);
 
-        this.groundGroup = this.matter.world.nextGroup();
         const ground = this.matter.add.sprite(0, 0, 'ground-image', null,
-            { shape: this.shapes.ground }).setCollisionGroup(this.groundGroup);
+            { shape: this.shapes.ground });
+        ground.setDepth(-2);
 
         this.bubbles = [];
         for (let i = 0; i < 10; i++) {
@@ -215,6 +215,10 @@ export default class MainScene extends Phaser.Scene {
         if (this.sub.subMatterContainer.y > config.BOSS_REVEAL_DEPTH && !this.sub.lightIsOn() && !this.sub.isDead()) {
             this.boss.setReveal(true);
         }
+        else if (this.sub.subMatterContainer.y < config.BOSS_REVEAL_DEPTH && this.boss.reveal) {
+            this.boss.setReveal(false);
+        }
+
         this.boss.update(delta);
 
         this.setAmbientColor();

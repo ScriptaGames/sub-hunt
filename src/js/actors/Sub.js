@@ -190,9 +190,10 @@ export default class Sub extends Phaser.GameObjects.GameObject {
     disabledByBoss(boss) {
         this.disabled = true;
         this.subMatterContainer.setVelocity(0, 0);
+        this.subMatterContainer.setRotation(0);
         this.subSprite.resetPipeline();
         this.propSprite.resetPipeline();
         this.propSprite.anims.stop();
-        this.subMatterContainer.y = boss.bossContainer.y + 50;
+        this.subMatterContainer.y = boss.bossContainer.y + 20;
     }
 }

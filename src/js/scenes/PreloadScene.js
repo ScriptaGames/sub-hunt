@@ -31,8 +31,8 @@ export default class PreloadScene extends Phaser.Scene {
         this.load.spritesheet('propeller', '../assets/images/Sub-Prop-sprite-sheet.png', { frameWidth: 56, frameHeight: 26 });
         this.load.spritesheet('glow-fish', '../assets/images/Glow_Fish_Animated-Spritesheet.png', { frameWidth: 220, frameHeight: 114 });
         this.load.spritesheet('bubbles', '../assets/images/Bubbles Spritesheet.png', { frameWidth: 154, frameHeight: 300 });
-        this.load.spritesheet('boss-face', '../assets/images/Boss-Face_Animated-Spritesheet.png', { frameWidth: 720, frameHeight: 720 });
-        this.load.spritesheet('boss-teeth', '../assets/images/Boss-Teeth_Animated-Spritesheet.png', { frameWidth: 720, frameHeight: 720 });
+        this.load.spritesheet('boss-face', '../assets/images/Boss-Face_Animated-Spritesheet.png', { frameWidth: 256, frameHeight: 256 });
+        this.load.spritesheet('boss-teeth', '../assets/images/Boss-Teeth_Animated-Spritesheet.png', { frameWidth: 256, frameHeight: 256 });
 
         // Physics shapes
         this.load.json('shapes', 'assets/json/shapes.json');
