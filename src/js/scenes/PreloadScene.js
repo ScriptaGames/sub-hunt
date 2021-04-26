@@ -82,8 +82,8 @@ export default class PreloadScene extends Phaser.Scene {
         this.load.image('loot-image', '../assets/images/Loot.png');
         this.load.image('barge-image', '../assets/images/Barge.png');
         this.load.image('barge-filled-image', '../assets/images/Barge_Filled.png');
-        this.load.image('boss-eyes-image', '../assets/images/Boss-Eyes_Only.png');
-        this.load.image('title-scene-image', '../assets/images/Sub_Game_Title_Frame-base2.png');
+        this.load.image('boss-eyes-image', '../assets/images/Boss-Eyes_Only_v2.png');
+        this.load.image('title-scene-image', '../assets/images/SubGameTitleFrame_v4.png');
         this.load.image('backstory-image', '../assets/images/backstory.jpg');
         this.load.image('button-instructions-20-image', '../assets/images/button-instructions-20.png');
         this.load.image('button-instructions-50-image', '../assets/images/button-instructions-50.png');
@@ -106,8 +106,8 @@ export default class PreloadScene extends Phaser.Scene {
         this.load.spritesheet('propeller', '../assets/images/Sub-Prop-sprite-sheet.png', { frameWidth: 56, frameHeight: 26 });
         this.load.spritesheet('glow-fish', '../assets/images/Glow_Fish_Animated-Spritesheet.png', { frameWidth: 220, frameHeight: 114 });
         this.load.spritesheet('bubbles', '../assets/images/Bubbles_Spritesheet.png', { frameWidth: 154, frameHeight: 300 });
-        this.load.spritesheet('boss-face', '../assets/images/Boss-Face_Animated-Spritesheet.png', { frameWidth: 256, frameHeight: 256 });
-        this.load.spritesheet('boss-teeth', '../assets/images/Boss-Teeth_Animated-Spritesheet.png', { frameWidth: 256, frameHeight: 256 });
+        this.load.spritesheet('boss-face', '../assets/images/Boss-Face_Animated-Spritesheet_v2.png', { frameWidth: 256, frameHeight: 256 });
+        this.load.spritesheet('boss-teeth', '../assets/images/Boss-Teeth_Animated-Spritesheet_v2.png', { frameWidth: 256, frameHeight: 256 });
 
         // Physics shapes
         this.load.json('shapes', 'assets/json/shapes.json');
@@ -167,7 +167,7 @@ export default class PreloadScene extends Phaser.Scene {
         const bossFaceAnimConfig = {
             key      : 'bossFaceAnim',
             frames   : this.anims.generateFrameNumbers('boss-face', { start: 0, end: 30, first: 0 }),
-            frameRate: 20,
+            frameRate: 30,
         };
         this.anims.create(bossFaceAnimConfig);
 

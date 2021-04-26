@@ -27,13 +27,20 @@ export default class Boss extends Phaser.GameObjects.GameObject {
         this.face = config.scene.add.sprite(0, 0, 'boss-face');
         // this.face.setScale(2);
         this.face.setVisible(false);
-        this.face.setDepth(-1);
+        this.face.setDepth(-100);
+
+        this.subSprite = config.scene.add.sprite(-10, -7, 'sub-image');
+        this.subSprite.setDepth(1);
+        this.subSprite.setVisible(false);
+        this.subSprite.setScale(0.5);
 
         this.teeth = config.scene.add.sprite(0, 0, 'boss-teeth');
         // this.teeth.setScale(2);
         this.teeth.setVisible(false);
+        this.teeth.setDepth(100);
 
-        this.bossContainer = config.scene.add.container(config.x, config.y, [this.eyesSprite, this.face, this.teeth]);
+        this.bossContainer = config.scene.add.container(config.x, config.y,
+            [this.eyesSprite, this.face, this.subSprite, this.teeth]);
 
         config.scene.add.existing(this.bossContainer);
     }
@@ -51,9 +58,11 @@ export default class Boss extends Phaser.GameObjects.GameObject {
             this.eyesSprite.setTint(Phaser.Display.Color.ValueToColor(tint).color);
 
             if (this.revealTick >= this.fullyRevealedTick) {
+                this.sub.subContainer.setVisible(false);
                 this.fullyRevealed = true;
                 this.eyesSprite.setTint(0xffffff);
                 this.face.setVisible(true);
+                this.subSprite.setVisible(true);
                 this.teeth.setVisible(true);
                 this.face.play('bossFaceAnim');
                 this.teeth.play('bossTeethAnim');

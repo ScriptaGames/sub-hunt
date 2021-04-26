@@ -28,7 +28,6 @@ export default class MenuScene extends Phaser.Scene {
 
         const titleImage = this.add.image(0, 0, 'title-scene-image');
         titleImage.setOrigin(0, 0);
-        titleImage.setScale(.55);
 
         // Play Button
         this.playButton = this.add.sprite(config.GAME_WIDTH / 2, config.GAME_HEIGHT - 100, 'button-play-20-image');
