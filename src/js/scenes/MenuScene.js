@@ -30,13 +30,22 @@ export default class MenuScene extends Phaser.Scene {
         titleImage.setOrigin(0, 0);
         titleImage.setScale(.55);
 
+        this.playButton = this.add.sprite(config.GAME_WIDTH / 2, config.GAME_HEIGHT - 100, 'button-play-20-image');
+        this.playButton.setInteractive();
+        this.playButton.setScale(0.5);
 
-        this.startButton = this.add.text(150, config.GAME_HEIGHT / 2, 'Start Game', { backgroundColor: '#000' });
-        this.startButton.x -= this.startButton.width / 2;
-        this.startButton.setInteractive();
-        this.startButton.on('pointerup', () => {
+        this.playButton.on('pointerover',() => {
+            this.playButton.setTexture('button-play-50-image');
+        });
+
+        this.playButton.on('pointerout',() => {
+            this.playButton.setTexture('button-play-20-image');
+        });
+
+        this.playButton.on('pointerup', () => {
             this.events.emit('mainGameMusic');
             this.scene.start('MainScene');
         });
+
     }
 }

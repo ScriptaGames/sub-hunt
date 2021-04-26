@@ -80,13 +80,29 @@ export default class PreloadScene extends Phaser.Scene {
         this.load.image('barge-image', '../assets/images/Barge.png');
         this.load.image('barge-filled-image', '../assets/images/Barge_Filled.png');
         this.load.image('boss-eyes-image', '../assets/images/Boss-Eyes_Only.png');
-        this.load.image('title-scene-image', '../assets/images/Sub Game Title Frame-base2.png');
+        this.load.image('title-scene-image', '../assets/images/Sub_Game_Title_Frame-base2.png');
+        this.load.image('backstory-image', '../assets/images/backstory.jpg');
+        this.load.image('button-instructions-20-image', '../assets/images/button-instructions-20.png');
+        this.load.image('button-instructions-50-image', '../assets/images/button-instructions-50.png');
+        this.load.image('button-letsgo-20-image', '../assets/images/button-letsgo-20.png');
+        this.load.image('button-letsgo-50-image', '../assets/images/button-letsgo-50.png');
+        this.load.image('button-mute', '../assets/images/button-mute.png');
+        this.load.image('button-unmute-image', '../assets/images/button-unmute.png');
+        this.load.image('button-play-20-image', '../assets/images/button-play-20.png');
+        this.load.image('button-play-50-image', '../assets/images/button-play-50.png');
+        this.load.image('button-playagain-20-image', '../assets/images/button-playagain-20.png');
+        this.load.image('button-playagain-50-image', '../assets/images/button-playagain-50.png');
+        this.load.image('clouds-image', '../assets/images/clouds.png');
+        this.load.image('game_over_screen-text-image', '../assets/images/game_over_screen-text.png');
+        this.load.image('game_over_screen-text-02-image', '../assets/images/game_over_screen-text-02.png');
+        this.load.image('tutorial_screen-image', '../assets/images/tutorial_screen.jpg');
+        this.load.image('victory_screen-text-image', '../assets/images/victory_screen-text.png');
 
         // Sprite sheets
         this.load.spritesheet('fullscreen', '../assets/images/fullscreen-white.png', { frameWidth: 64, frameHeight: 64 });
         this.load.spritesheet('propeller', '../assets/images/Sub-Prop-sprite-sheet.png', { frameWidth: 56, frameHeight: 26 });
         this.load.spritesheet('glow-fish', '../assets/images/Glow_Fish_Animated-Spritesheet.png', { frameWidth: 220, frameHeight: 114 });
-        this.load.spritesheet('bubbles', '../assets/images/Bubbles Spritesheet.png', { frameWidth: 154, frameHeight: 300 });
+        this.load.spritesheet('bubbles', '../assets/images/Bubbles_Spritesheet.png', { frameWidth: 154, frameHeight: 300 });
         this.load.spritesheet('boss-face', '../assets/images/Boss-Face_Animated-Spritesheet.png', { frameWidth: 256, frameHeight: 256 });
         this.load.spritesheet('boss-teeth', '../assets/images/Boss-Teeth_Animated-Spritesheet.png', { frameWidth: 256, frameHeight: 256 });
 
