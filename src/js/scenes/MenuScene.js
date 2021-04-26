@@ -88,5 +88,22 @@ export default class MenuScene extends Phaser.Scene {
                 this.soundActive = true;
             }
         });
+
+        // Fullscreen button
+        const fullscreenButton = this.add.image(config.GAME_WIDTH - 100, config.GAME_HEIGHT - 50, 'fullscreen', 0);
+        fullscreenButton.setInteractive();
+        fullscreenButton.setScale(0.6);
+        fullscreenButton.on('pointerup', () => {
+            if (this.scale.isFullscreen) {
+                consola.debug('Stop fullscreen');
+                fullscreenButton.setFrame(0);
+                this.scale.stopFullscreen();
+            }
+            else {
+                consola.debug('Start fullscreen');
+                fullscreenButton.setFrame(1);
+                this.scale.startFullscreen();
+            }
+        }, this);
     }
 }

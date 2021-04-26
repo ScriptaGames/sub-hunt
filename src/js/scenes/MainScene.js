@@ -133,23 +133,6 @@ export default class MainScene extends Phaser.Scene {
         this.cameras.main.startFollow(this.sub.subMatterContainer, false, 0.05, 0.05);
         this.cameras.main.setBackgroundColor(0x004080);
 
-        // Fullscreen button
-        // TODO: Add this in the right position
-        // const fullscreenButton = this.add.image(config.GAME_WIDTH - 16, 16, 'fullscreen', 0)
-        // .setOrigin(1, 0).setInteractive();
-        // fullscreenButton.on('pointerup', () => {
-        //     if (this.scale.isFullscreen) {
-        //         consola.debug('Stop fullscreen');
-        //         fullscreenButton.setFrame(0);
-        //         this.scale.stopFullscreen();
-        //     }
-        //     else {
-        //         consola.debug('Start fullscreen');
-        //         fullscreenButton.setFrame(1);
-        //         this.scale.startFullscreen();
-        //     }
-        // }, this);
-
         this.input.on('pointerdown', (pointer) => {
             if (!this.sub.isDead() && !this.sub.disabled) {
                 this.sub.toggleLights();

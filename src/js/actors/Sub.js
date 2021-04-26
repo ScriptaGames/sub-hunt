@@ -43,6 +43,12 @@ export default class Sub extends Phaser.GameObjects.GameObject {
         });
 
         this.createLights(config.scene);
+
+        // this.cursorKeys = this.scene.input.keyboard.createCursorKeys();
+        const keyObj = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        keyObj.on('down', () => {
+            this.toggleLights();
+        });
     }
 
     lightPowerTick() {
