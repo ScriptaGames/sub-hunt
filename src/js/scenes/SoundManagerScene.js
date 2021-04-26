@@ -40,6 +40,7 @@ export default class SoundManagerScene extends Phaser.Scene {
         this.propeller = this.sound.add('propeller');
         this.bossAttack = this.sound.add('hungry-monster');
         this.sonar = this.sound.add('sonar');
+        this.coins = this.sound.add('coins-collection');
 
         // Music
         this.menuMusic = this.sound.add('menu-music');
@@ -88,6 +89,10 @@ export default class SoundManagerScene extends Phaser.Scene {
         this.gameScene.events.on('lose', () => {
             this.mainMusic.stop();
             this.loseMusic.play({ loop: true, volume: 0.25 });
+        });
+
+        this.gameScene.events.on('loot', () => {
+            this.coins.play();
         });
 
         this.menuMusic.play();

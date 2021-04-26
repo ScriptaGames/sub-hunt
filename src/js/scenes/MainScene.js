@@ -307,11 +307,13 @@ export default class MainScene extends Phaser.Scene {
 
         // Update sub
         this.sub.collectLoot();
+        this.events.emit('loot');
     }
 
     deliverLoot() {
         consola.log('Loot delivered');
         this.bargeSprite.setTexture('barge-filled-image');
+        this.events.emit('loot');
         this.sub.deliverLoot();
         this.scene.get('VictoryScene').show();
         this.events.emit('win');
