@@ -10,7 +10,7 @@ const config = {
     LIGHTS_ALWAYS_ON : false,
     INVULNERABLE     : false,
     SKY_HEIGHT       : 100,
-    GRAVITY          : .75,
+    GRAVITY          : 0.08,
     DISABLE_SOUNDS   : false,
     BOSS_REVEAL_DEPTH: 2400,
     BOSS_REVEAL_TIME : 7,
