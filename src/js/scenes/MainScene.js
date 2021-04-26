@@ -100,6 +100,7 @@ export default class MainScene extends Phaser.Scene {
                 loop    : false,
                 callback: () => {
                     this.scene.get('GameOverScene').show('monster');
+                    this.events.emit('lose');
                 },
                 callbackScope: this,
             });
@@ -185,6 +186,7 @@ export default class MainScene extends Phaser.Scene {
                     if (this.sub.isDead()) {
                         this.matter.world.setGravity(0, config.GRAVITY);
                         this.scene.get('GameOverScene').show('rocks');
+                        this.events.emit('lose');
                         this.sub.flickerLights();
                     }
                 }
@@ -312,6 +314,7 @@ export default class MainScene extends Phaser.Scene {
         this.bargeSprite.setTexture('barge-filled-image');
         this.sub.deliverLoot();
         this.scene.get('VictoryScene').show();
+        this.events.emit('win');
         this.sub.hasWon = true;
     }
 }

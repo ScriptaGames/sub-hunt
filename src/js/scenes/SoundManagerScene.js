@@ -41,8 +41,16 @@ export default class SoundManagerScene extends Phaser.Scene {
         this.bossAttack = this.sound.add('hungry-monster');
         this.sonar = this.sound.add('sonar');
 
+        // Music
+        this.menuMusic = this.sound.add('menu-music');
+        this.mainMusic = this.sound.add('main-music');
+        this.winMusic = this.sound.add('win-music');
+        this.loseMusic = this.sound.add('lose-music');
+
         this.menuScene = this.scene.get('MenuScene');
         this.bacstoryScene = this.scene.get('BackstoryScene');
+        this.victoryScene = this.scene.get('VictoryScene');
+        this.gameOverScene = this.scene.get('GameOverScene');
         this.gameScene = this.scene.get('MainScene');
 
         this.gameScene.events.on('healthChanged', (health) => {
@@ -72,15 +80,32 @@ export default class SoundManagerScene extends Phaser.Scene {
             this.sonar.play();
         });
 
-        this.menuMusic = this.sound.add('menu-music');
+        this.gameScene.events.on('win', () => {
+            this.mainMusic.stop();
+            this.winMusic.play({ loop: true, volume: 0.25 });
+        });
+
+        this.gameScene.events.on('lose', () => {
+            this.mainMusic.stop();
+            this.loseMusic.play({ loop: true, volume: 0.25 });
+        });
+
         this.menuMusic.play();
-        this.mainMusic = this.sound.add('main-music');
+
         this.menuScene.events.on('mainGameMusic', () => {
             this.startMainGameSounds();
         });
         this.bacstoryScene.events.on('mainGameMusic', () => {
             this.startMainGameSounds();
         });
+
+        this.victoryScene.events.on('mainGameMusic', () => {
+            this.startMainGameSounds();
+        });
+        this.gameOverScene.events.on('mainGameMusic', () => {
+            this.startMainGameSounds();
+        });
+
     }
 
     playRandomSound() {
@@ -99,6 +124,8 @@ export default class SoundManagerScene extends Phaser.Scene {
     startMainGameSounds() {
         consola.log('playing main game sounds');
         this.menuMusic.stop();
+        this.loseMusic.stop();
+        this.winMusic.stop();
         this.mainMusic.play({ loop: true, volume: 0.25 });
         this.propeller.play({ loop: true });
     }

@@ -31,6 +31,7 @@ export default class VictoryScene extends Phaser.Scene {
             if (this.scene.isVisible()) {
                 const gameScene = this.scene.get('MainScene');
                 const uiScene = this.scene.get('UIScene');
+                this.events.emit('mainGameMusic');
                 uiScene.scene.restart();
                 gameScene.scene.restart();
                 this.hide();
