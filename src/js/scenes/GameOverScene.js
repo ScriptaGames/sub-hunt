@@ -8,29 +8,49 @@ export default class GameOverScene extends Phaser.Scene {
     }
 
     create() {
-        const gameOverText = this.add.text(config.GAME_WIDTH / 2, config.GAME_HEIGHT / 2, 'Game Over', { backgroundColor: '#000' });
-        gameOverText.x -= gameOverText.width / 2;
+        this.gameOverSprite = this.add.sprite(config.GAME_WIDTH / 2, config.GAME_HEIGHT / 2, 'game_over_screen-text-image');
 
-        this.restartButton = this.add.text(config.GAME_WIDTH / 2, gameOverText.y + gameOverText.height + 20, 'Restart Game', { backgroundColor: '#000' });
-        this.restartButton.x -= this.restartButton.width / 2;
-        this.restartButton.on('pointerup', () => {
-            const gameScene = this.scene.get('MainScene');
-            const uiScene = this.scene.get('UIScene');
-            uiScene.scene.restart();
-            gameScene.scene.restart();
-            this.hide();
+        // Play Button
+        this.playButton = this.add.sprite(config.GAME_WIDTH / 2, config.GAME_HEIGHT - 120,
+            'button-playagain-20-image');
+        this.playButton.setInteractive();
+        this.playButton.setScale(0.5);
+
+        this.playButton.on('pointerover', () => {
+            this.playButton.setTexture('button-playagain-50-image');
+        });
+
+        this.playButton.on('pointerout', () => {
+            this.playButton.setTexture('button-playagain-20-image');
+        });
+
+        this.playButton.on('pointerup', () => {
+            if (this.scene.isVisible()) {
+                const gameScene = this.scene.get('MainScene');
+                const uiScene = this.scene.get('UIScene');
+                uiScene.scene.restart();
+                gameScene.scene.restart();
+                this.hide();
+            }
         });
 
         this.hide(); // hide unless specifically shown
     }
 
-    show() {
-        this.restartButton.setInteractive();
+    show(deathType) {
+        if (deathType === 'rocks') {
+            this.gameOverSprite.setTexture('game_over_screen-text-image');
+        }
+        else if (deathType === 'monster') {
+            this.gameOverSprite.setTexture('game_over_screen-text-02-image');
+        }
+
+        this.playButton.setInteractive();
         this.scene.setVisible(true);
     }
 
     hide() {
-        this.restartButton.disableInteractive();
+        this.playButton.disableInteractive();
         this.scene.setVisible(false);
     }
 }

@@ -99,7 +99,7 @@ export default class MainScene extends Phaser.Scene {
                 delay   : 4000,
                 loop    : false,
                 callback: () => {
-                    this.scene.get('GameOverScene').show();
+                    this.scene.get('GameOverScene').show('monster');
                 },
                 callbackScope: this,
             });
@@ -184,7 +184,7 @@ export default class MainScene extends Phaser.Scene {
                     this.sub.takeDamage(0.1);
                     if (this.sub.isDead()) {
                         this.matter.world.setGravity(0, config.GRAVITY);
-                        this.scene.get('GameOverScene').show();
+                        this.scene.get('GameOverScene').show('rocks');
                         this.sub.flickerLights();
                     }
                 }
