@@ -42,6 +42,7 @@ export default class SoundManagerScene extends Phaser.Scene {
         this.sonar = this.sound.add('sonar');
 
         this.menuScene = this.scene.get('MenuScene');
+        this.bacstoryScene = this.scene.get('BackstoryScene');
         this.gameScene = this.scene.get('MainScene');
 
         this.gameScene.events.on('healthChanged', (health) => {
@@ -75,9 +76,10 @@ export default class SoundManagerScene extends Phaser.Scene {
         this.menuMusic.play();
         this.mainMusic = this.sound.add('main-music');
         this.menuScene.events.on('mainGameMusic', () => {
-            this.menuMusic.stop();
-            this.mainMusic.play({ loop: true, volume: 0.25 });
-            this.propeller.play({ loop: true });
+            this.startMainGameSounds();
+        });
+        this.bacstoryScene.events.on('mainGameMusic', () => {
+            this.startMainGameSounds();
         });
     }
 
@@ -92,5 +94,12 @@ export default class SoundManagerScene extends Phaser.Scene {
 
         const soundIndex = Phaser.Math.Between(0, this.miscSounds.length - 1);
         this.miscSounds[soundIndex].play();
+    }
+
+    startMainGameSounds() {
+        consola.log('playing main game sounds');
+        this.menuMusic.stop();
+        this.mainMusic.play({ loop: true, volume: 0.25 });
+        this.propeller.play({ loop: true });
     }
 }
