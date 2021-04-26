@@ -16,6 +16,8 @@ export default class SoundManagerScene extends Phaser.Scene {
     create() {
         if (config.DISABLE_SOUNDS) return;
 
+        consola.info('Creating Sound Manager');
+
         this.miscSounds = [
             this.sound.add('bubble1'),
             this.sound.add('bubble2'),

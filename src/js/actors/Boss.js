@@ -1,3 +1,5 @@
+/* global Phaser */
+
 const consola = require('consola').withTag('Boss');
 
 import gameConfig from '../config';

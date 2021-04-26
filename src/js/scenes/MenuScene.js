@@ -35,11 +35,11 @@ export default class MenuScene extends Phaser.Scene {
         this.playButton.setInteractive();
         this.playButton.setScale(0.5);
 
-        this.playButton.on('pointerover',() => {
+        this.playButton.on('pointerover', () => {
             this.playButton.setTexture('button-play-50-image');
         });
 
-        this.playButton.on('pointerout',() => {
+        this.playButton.on('pointerout', () => {
             this.playButton.setTexture('button-play-20-image');
         });
 
@@ -53,17 +53,16 @@ export default class MenuScene extends Phaser.Scene {
         this.instructionsButton.setInteractive();
         this.instructionsButton.setScale(0.5);
 
-        this.instructionsButton.on('pointerover',() => {
+        this.instructionsButton.on('pointerover', () => {
             this.instructionsButton.setTexture('button-instructions-50-image');
         });
 
-        this.instructionsButton.on('pointerout',() => {
+        this.instructionsButton.on('pointerout', () => {
             this.instructionsButton.setTexture('button-instructions-20-image');
         });
 
         this.instructionsButton.on('pointerup', () => {
-            this.events.emit('mainGameMusic');
-            this.scene.start('MainScene');
+            this.scene.start('InstructionsScene');
         });
 
         // Mute Button
