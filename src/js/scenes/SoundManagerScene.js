@@ -20,6 +20,8 @@ export default class SoundManagerScene extends Phaser.Scene {
         this.load.audio('whale', '../assets/sounds/whale.mp3');
         this.load.audio('sea-creature1', '../assets/sounds/sea-creature1.mp3');
         this.load.audio('sea-creature2', '../assets/sounds/sea-creature2.mp3');
+        this.load.audio('hungry-monster', '../assets/sounds/hungry-monster.mp3');
+        this.load.audio('sonar', '../assets/sounds/sonar-ping-short.mp3');
     }
 
     create() {
@@ -46,6 +48,8 @@ export default class SoundManagerScene extends Phaser.Scene {
         this.swallow = this.sound.add('swallow');
         this.propeller = this.sound.add('propeller');
         this.propeller.play({ loop: true });
+        this.bossAttack = this.sound.add('hungry-monster');
+        this.sonar = this.sound.add('sonar');
 
         this.gameScene = this.scene.get('MainScene');
         this.gameScene.events.on('healthChanged', (health) => {
@@ -65,6 +69,14 @@ export default class SoundManagerScene extends Phaser.Scene {
 
         this.gameScene.events.on('lightChargeChanged', () => {
             this.swallow.play({ volume: 0.5 });
+        });
+
+        this.gameScene.events.on('bossAttack', () => {
+            this.bossAttack.play();
+        });
+
+        this.gameScene.events.on('ping', () => {
+            this.sonar.play();
         });
 
         this.mainMusic = this.sound.add('main-music');

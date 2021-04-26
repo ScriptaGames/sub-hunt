@@ -32,6 +32,7 @@ export default class Sub extends Phaser.GameObjects.GameObject {
         this.health = 1.0;
 
         this.hasLoot = false;
+        this.disabled = false;
 
         config.scene.time.addEvent({
             delay        : 1000,
@@ -55,6 +56,8 @@ export default class Sub extends Phaser.GameObjects.GameObject {
     }
 
     update(keys) {
+        if (this.disabled) return;
+
         if (!this.isDead()) {
             const surfaceLevel = (config.SKY_HEIGHT - 60) + (this.subSprite.height / 2);
             const atSurface = this.subMatterContainer.y < surfaceLevel;
@@ -168,5 +171,23 @@ export default class Sub extends Phaser.GameObjects.GameObject {
     deliverLoot() {
         this.subSprite.setTexture('sub-image');
         this.hasLoot = false;
+    }
+
+    disabledByBoss(boss) {
+        this.disabled = true;
+        this.subMatterContainer.setVelocity(0, 0);
+        this.subSprite.resetPipeline();
+        this.propSprite.resetPipeline();
+        this.propSprite.anims.stop();
+        this.subMatterContainer.y += 65;
+
+        this.scene.time.addEvent({
+            delay   : 500,
+            loop    : false,
+            callback: () => {
+                this.subMatterContainer.y -= 20;
+            },
+            callbackScope: this,
+        });
     }
 }
