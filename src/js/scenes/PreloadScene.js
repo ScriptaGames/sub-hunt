@@ -24,6 +24,7 @@ export default class PreloadScene extends Phaser.Scene {
         this.load.image('barge-image', '../assets/images/Barge.png');
         this.load.image('barge-filled-image', '../assets/images/Barge_Filled.png');
         this.load.image('boss-eyes-image', '../assets/images/Boss-Eyes_Only.png');
+        this.load.image('title-scene-image', '../assets/images/Sub Game Title Frame-base2.png');
 
         // Sprite sheets
         this.load.spritesheet('fullscreen', '../assets/images/fullscreen-white.png', { frameWidth: 64, frameHeight: 64 });

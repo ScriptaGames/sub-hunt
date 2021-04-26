@@ -2,6 +2,8 @@
 
 import config from '../config';
 
+const consola = require('consola').withTag('SoundManagerScene');
+
 export default class SoundManagerScene extends Phaser.Scene {
     constructor() {
         super({ key: 'SoundManagerScene', active: true });
@@ -14,6 +16,7 @@ export default class SoundManagerScene extends Phaser.Scene {
         this.load.audio('swallow', '../assets/sounds/swallow.mp3');
         this.load.audio('propeller', '../assets/sounds/propeller.mp3');
         this.load.audio('main-music', '../assets/sounds/ld48-ambient-play-music.mp3');
+        this.load.audio('menu-music', '../assets/sounds/ld48-title-page-music.mp3');
         this.load.audio('bubble1', '../assets/sounds/bubble1.mp3');
         this.load.audio('bubble2', '../assets/sounds/bubble2.mp3');
         this.load.audio('bubble3', '../assets/sounds/bubble3.mp3');
@@ -47,11 +50,12 @@ export default class SoundManagerScene extends Phaser.Scene {
         this.lightsOff = this.sound.add('lights-off');
         this.swallow = this.sound.add('swallow');
         this.propeller = this.sound.add('propeller');
-        this.propeller.play({ loop: true });
         this.bossAttack = this.sound.add('hungry-monster');
         this.sonar = this.sound.add('sonar');
 
+        this.menuScene = this.scene.get('MenuScene');
         this.gameScene = this.scene.get('MainScene');
+
         this.gameScene.events.on('healthChanged', (health) => {
             this.subCrash.play();
             if (health === 0) {
@@ -79,8 +83,14 @@ export default class SoundManagerScene extends Phaser.Scene {
             this.sonar.play();
         });
 
+        this.menuMusic = this.sound.add('menu-music');
+        this.menuMusic.play();
         this.mainMusic = this.sound.add('main-music');
-        this.mainMusic.play({ loop: true, volume: 0.25 });
+        this.menuScene.events.on('mainGameMusic', () => {
+            this.menuMusic.stop();
+            this.mainMusic.play({ loop: true, volume: 0.25 });
+            this.propeller.play({ loop: true });
+        });
     }
 
     playRandomSound() {

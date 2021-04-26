@@ -1,5 +1,7 @@
 /* global Phaser */
 
+import config from '../config';
+
 const consola = require('consola').withTag('MenuScene');
 
 /**
@@ -22,7 +24,19 @@ export default class MenuScene extends Phaser.Scene {
     create(data) {
         consola.info('Create');
 
-        // TODO: create a main menu "Play" button
-        this.scene.start('MainScene');
+        this.events.emit('mainMenuMusic');
+
+        const titleImage = this.add.image(0, 0, 'title-scene-image');
+        titleImage.setOrigin(0, 0);
+        titleImage.setScale(.55);
+
+
+        this.startButton = this.add.text(150, config.GAME_HEIGHT / 2, 'Start Game', { backgroundColor: '#000' });
+        this.startButton.x -= this.startButton.width / 2;
+        this.startButton.setInteractive();
+        this.startButton.on('pointerup', () => {
+            this.events.emit('mainGameMusic');
+            this.scene.start('MainScene');
+        });
     }
 }
