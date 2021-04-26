@@ -27,6 +27,10 @@ export default class MainScene extends Phaser.Scene {
         sky.fillRect(0, 0, config.WORLD_WIDTH, config.SKY_HEIGHT);
 
         // Add the Actors to the scene
+        // Barge sprite
+        this.bargeSprite = this.add.sprite(1000, 80, 'barge-image');
+        this.bargeSprite.scale = 1.2;
+
         this.shapes = this.cache.json.get('shapes');
         this.matter.world.setBounds(0, 0, config.WORLD_WIDTH, config.WORLD_HEIGHT);
 
@@ -60,7 +64,7 @@ export default class MainScene extends Phaser.Scene {
                 y  : 36,
                 key: 'propeller',
             },
-            pos     : { x: 1500, y: 300 },
+            pos     : { x: 1000, y: 130 },
             subShape: this.shapes.Sub_Base,
         });
 
@@ -193,6 +197,11 @@ export default class MainScene extends Phaser.Scene {
                 }
             }
         });
+
+        const distance = Phaser.Math.Distance.BetweenPoints(this.sub.subContainer, this.bargeSprite);
+        if (distance < 120 && this.sub.hasLoot) {
+            this.deliverLoot();
+        }
     }
 
     setAmbientColor() {
@@ -248,5 +257,11 @@ export default class MainScene extends Phaser.Scene {
 
         // Update sub
         this.sub.collectLoot();
+    }
+
+    deliverLoot() {
+        consola.log('Loot delivered');
+        this.bargeSprite.setTexture('barge-filled-image');
+        this.sub.deliverLoot();
     }
 }

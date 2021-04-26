@@ -1,3 +1,5 @@
+/* global Phaser */
+
 import config from '../config';
 
 export default class GameOverScene extends Phaser.Scene {

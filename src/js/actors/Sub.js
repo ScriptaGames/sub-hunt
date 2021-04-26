@@ -56,7 +56,8 @@ export default class Sub extends Phaser.GameObjects.GameObject {
 
     update(keys) {
         if (!this.isDead()) {
-            const atSurface = this.subMatterContainer.y < config.SKY_HEIGHT + this.subSprite.height / 2;
+            const surfaceLevel = (config.SKY_HEIGHT - 60) + (this.subSprite.height / 2);
+            const atSurface = this.subMatterContainer.y < surfaceLevel;
             if (keys.W.isDown && !atSurface) {
                 this.subMatterContainer.thrustLeft(config.THRUST_POWER);
             }
@@ -76,7 +77,7 @@ export default class Sub extends Phaser.GameObjects.GameObject {
             this.subMatterContainer.setRotation(lerpRotation);
 
             if (atSurface) {
-                this.subMatterContainer.y = config.SKY_HEIGHT + this.subSprite.height / 2;
+                this.subMatterContainer.y = surfaceLevel;
             }
         }
 
@@ -129,11 +130,13 @@ export default class Sub extends Phaser.GameObjects.GameObject {
     }
 
     takeDamage(amount) {
-        this.health = Phaser.Math.Clamp(this.health - amount, 0, 1);
-        this.scene.events.emit('healthChanged', this.health);
-        if (this.health === 0) {
-            consola.info('dead');
-            this.propSprite.anims.stop();
+        if (!config.INVULNERABLE) {
+            this.health = Phaser.Math.Clamp(this.health - amount, 0, 1);
+            this.scene.events.emit('healthChanged', this.health);
+            if (this.health === 0) {
+                consola.info('dead');
+                this.propSprite.anims.stop();
+            }
         }
     }
 
@@ -152,7 +155,12 @@ export default class Sub extends Phaser.GameObjects.GameObject {
 
     collectLoot() {
         // change texture and body shape
-        this.subSprite.setTexture('sub-loot');
+        this.subSprite.setTexture('sub-loot-image');
         this.hasLoot = true;
+    }
+
+    deliverLoot() {
+        this.subSprite.setTexture('sub-image');
+        this.hasLoot = false;
     }
 }
