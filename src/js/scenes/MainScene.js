@@ -23,8 +23,8 @@ export default class MainScene extends Phaser.Scene {
         this.victory = false;
 
         this.scene.setVisible(true, 'UIScene');
-        this.scene.setVisible(false, 'GameOverScene');
-        this.scene.setVisible(false, 'VictoryScene');
+        this.scene.get('GameOverScene').hide();
+        this.scene.get('VictoryScene').hide();
 
         this.lights.enable().setAmbientColor(0x111111);
 
@@ -98,7 +98,7 @@ export default class MainScene extends Phaser.Scene {
                 delay   : 4000,
                 loop    : false,
                 callback: () => {
-                    this.scene.setVisible(true, 'GameOverScene');
+                    this.scene.get('GameOverScene').show();
                 },
                 callbackScope: this,
             });
@@ -183,7 +183,7 @@ export default class MainScene extends Phaser.Scene {
                     this.sub.takeDamage(0.1);
                     if (this.sub.isDead()) {
                         this.matter.world.setGravity(0, config.GRAVITY);
-                        this.scene.setVisible(true, 'GameOverScene');
+                        this.scene.get('GameOverScene').show();
                         this.sub.flickerLights();
                     }
                 }
@@ -306,7 +306,7 @@ export default class MainScene extends Phaser.Scene {
         consola.log('Loot delivered');
         this.bargeSprite.setTexture('barge-filled-image');
         this.sub.deliverLoot();
-        this.scene.setVisible(true, 'VictoryScene');
+        this.scene.get('VictoryScene').show();
         this.sub.hasWon = true;
     }
 }
