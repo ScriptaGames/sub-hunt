@@ -8,6 +8,7 @@ export default class Sub extends Phaser.GameObjects.GameObject {
     constructor(config) {
         super(config.scene);
 
+        this.hasWon = false;
         this.subSprite = config.scene.add.sprite(config.sub.x, config.sub.y, config.sub.key);
         this.subSprite.setPipeline('Light2D');
         this.propSprite = config.scene.add.sprite(config.prop.x, config.prop.y, config.prop.key).play('propellerAnimation');
@@ -58,20 +59,11 @@ export default class Sub extends Phaser.GameObjects.GameObject {
         if (!this.isDead()) {
             const surfaceLevel = (config.SKY_HEIGHT - 60) + (this.subSprite.height / 2);
             const atSurface = this.subMatterContainer.y < surfaceLevel;
-            if (keys.W.isDown && !atSurface) {
-                this.subMatterContainer.thrustLeft(config.THRUST_POWER);
+
+            if (!this.hasWon) {
+                this.handleInput(keys, atSurface);
             }
-            if (keys.A.isDown) {
-                this.subMatterContainer.thrustBack(config.THRUST_POWER);
-                this.flipX('left');
-            }
-            if (keys.S.isDown) {
-                this.subMatterContainer.thrustRight(config.THRUST_POWER);
-            }
-            if (keys.D.isDown) {
-                this.subMatterContainer.thrust(config.THRUST_POWER);
-                this.flipX('right');
-            }
+
             const lerpRotation = Phaser.Math.Linear(this.subMatterContainer.rotation, 0, 0.2);
 
             this.subMatterContainer.setRotation(lerpRotation);
@@ -168,5 +160,22 @@ export default class Sub extends Phaser.GameObjects.GameObject {
     deliverLoot() {
         this.subSprite.setTexture('sub-image');
         this.hasLoot = false;
+    }
+
+    handleInput(keys, atSurface) {
+        if (keys.W.isDown && !atSurface) {
+            this.subMatterContainer.thrustLeft(config.THRUST_POWER);
+        }
+        if (keys.A.isDown) {
+            this.subMatterContainer.thrustBack(config.THRUST_POWER);
+            this.flipX('left');
+        }
+        if (keys.S.isDown) {
+            this.subMatterContainer.thrustRight(config.THRUST_POWER);
+        }
+        if (keys.D.isDown) {
+            this.subMatterContainer.thrust(config.THRUST_POWER);
+            this.flipX('right');
+        }
     }
 }

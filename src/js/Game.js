@@ -9,6 +9,7 @@ import MenuScene from 'scenes/MenuScene';
 import UIScene from 'scenes/UIScene';
 import SoundManagerScene from './scenes/SoundManagerScene';
 import GameOverScene from './scenes/GameOverScene';
+import VictoryScene from './scenes/VictoryScene';
 
 export default class Game extends Phaser.Game {
 
@@ -31,7 +32,7 @@ export default class Game extends Phaser.Game {
                     },
                 },
             },
-            scene: [PreloadScene, MenuScene, MainScene, UIScene, SoundManagerScene, GameOverScene],
+            scene: [PreloadScene, MenuScene, MainScene, UIScene, SoundManagerScene, GameOverScene, VictoryScene],
         };
 
         super(gameConfig);

@@ -18,7 +18,11 @@ export default class MainScene extends Phaser.Scene {
     create() {
         consola.info('Create');
 
+        this.victory = false;
+
         this.scene.setVisible(true, 'UIScene');
+        this.scene.setVisible(false, 'GameOverScene');
+        this.scene.setVisible(false, 'VictoryScene');
 
         this.lights.enable().setAmbientColor(0x111111);
 
@@ -112,11 +116,11 @@ export default class MainScene extends Phaser.Scene {
         //     }
         // }, this);
 
-        this.input.on('pointerdown', (pointer) => {
-            if (!this.sub.isDead()) {
-                this.sub.toggleLights();
-            }
-        });
+        // this.input.on('pointerdown', (pointer) => {
+        //     // if (!this.sub.isDead()) {
+        //     //     this.sub.toggleLights();
+        //     // }
+        // });
 
         this.keys = this.input.keyboard.addKeys('W,S,A,D');
     }
@@ -172,7 +176,10 @@ export default class MainScene extends Phaser.Scene {
     }
 
     update(time, delta) {
-        this.sub.update(this.keys);
+        if (!this.victory) {
+            this.sub.update(this.keys);
+        }
+
 
         this.setAmbientColor();
 
@@ -263,5 +270,7 @@ export default class MainScene extends Phaser.Scene {
         consola.log('Loot delivered');
         this.bargeSprite.setTexture('barge-filled-image');
         this.sub.deliverLoot();
+        this.scene.setVisible(true, 'VictoryScene');
+        this.sub.hasWon = true;
     }
 }
