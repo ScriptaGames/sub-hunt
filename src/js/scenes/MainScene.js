@@ -1,5 +1,7 @@
 /* global Phaser */
 
+import Boss from '../actors/Boss';
+
 const consola = require('consola').withTag('MainScene');
 import config from '../config';
 
@@ -72,6 +74,36 @@ export default class MainScene extends Phaser.Scene {
             subShape: this.shapes.Sub_Base,
         });
 
+        this.boss = new Boss({
+            scene: this,
+            sub  : this.sub,
+            eyes : {
+                x  : 0,
+                y  : 0,
+                key: 'boss-eyes-image',
+            },
+            x: 800,
+            y: 300,
+        });
+
+        this.events.on('lightsOn', () => {
+            consola.info('lights on');
+            if (this.boss.reveal) {
+                this.boss.setReveal(false);
+            }
+        });
+        this.events.on('bossAttack', () => {
+            this.sub.disabledByBoss(this.boss);
+            this.time.addEvent({
+                delay   : 4000,
+                loop    : false,
+                callback: () => {
+                    this.scene.setVisible(true, 'GameOverScene');
+                },
+                callbackScope: this,
+            });
+        });
+
         this.glowFishGroup = this.matter.world.nextGroup(true);
         for (let i = 0; i < 10; i++) {
             const x = Phaser.Math.Between(200, 1500);
@@ -117,7 +149,7 @@ export default class MainScene extends Phaser.Scene {
         // }, this);
 
         this.input.on('pointerdown', (pointer) => {
-            if (!this.sub.isDead()) {
+            if (!this.sub.isDead() && !this.sub.disabled) {
                 this.sub.toggleLights();
             }
         });
@@ -180,6 +212,11 @@ export default class MainScene extends Phaser.Scene {
             this.sub.update(this.keys);
         }
 
+
+        if (this.sub.subMatterContainer.y > config.BOSS_REVEAL_DEPTH && !this.sub.lightIsOn()) {
+            this.boss.setReveal(true);
+        }
+        this.boss.update(delta);
 
         this.setAmbientColor();
 
