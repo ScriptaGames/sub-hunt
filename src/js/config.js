@@ -8,7 +8,7 @@ const config = {
     DEBUG           : false,
     THRUST_POWER    : 0.00085,
     LIGHTS_ALWAYS_ON: true,
-    INVULNERABLE    : true,
+    INVULNERABLE    : false,
     SKY_HEIGHT      : 100,
     GRAVITY         : .75,
     DISABLE_SOUNDS  : false,
