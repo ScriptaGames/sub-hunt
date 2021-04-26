@@ -128,12 +128,16 @@ export default class Sub extends Phaser.GameObjects.GameObject {
         if (!config.INVULNERABLE) {
             this.health = Phaser.Math.Clamp(this.health - amount, 0, 1);
             this.scene.events.emit('healthChanged', this.health);
-            if (this.hasLoot) {
-                this.subSprite.setTexture('sub-loot-damaged-image');
+
+            if (this.health <= 0.3) {
+                if (this.hasLoot) {
+                    this.subSprite.setTexture('sub-loot-damaged-image');
+                }
+                else {
+                    this.subSprite.setTexture('sub-damaged-image');
+                }
             }
-            else {
-                this.subSprite.setTexture('sub-damaged-image');
-            }
+
             if (this.health === 0) {
                 consola.info('dead');
                 this.propSprite.anims.stop();

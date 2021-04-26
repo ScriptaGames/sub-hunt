@@ -7,7 +7,7 @@ const config = {
     WORLD_HEIGHT     : 3000,
     DEBUG            : false,
     THRUST_POWER     : 0.00085,
-    LIGHTS_ALWAYS_ON : true,
+    LIGHTS_ALWAYS_ON : false,
     INVULNERABLE     : false,
     SKY_HEIGHT       : 100,
     GRAVITY          : .75,
