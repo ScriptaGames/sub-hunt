@@ -14,7 +14,10 @@ export default class Sub extends Phaser.GameObjects.GameObject {
         this.propSprite = config.scene.add.sprite(config.prop.x, config.prop.y, config.prop.key).play('propellerAnimation');
         this.propSprite.setPipeline('Light2D');
 
-        this.subContainer = config.scene.add.container(config.pos.x, config.pos.y, [this.propSprite, this.subSprite]);
+        this.plunger = config.scene.add.rectangle(-120, -15, 25, 25);
+
+        this.subContainer = config.scene.add.container(config.pos.x, config.pos.y,
+            [this.propSprite, this.subSprite, this.plunger]);
 
         const colGroup = config.scene.matter.world.nextGroup();
         this.subMatterContainer = config.scene.matter.add.gameObject(this.subContainer, { shape: config.subShape });

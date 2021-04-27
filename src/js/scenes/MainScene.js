@@ -106,20 +106,24 @@ export default class MainScene extends Phaser.Scene {
             });
         });
 
+        this.glowFishArray = [];
         this.glowFishGroup = this.matter.world.nextGroup(true);
         for (let i = 0; i < 10; i++) {
             const x = Phaser.Math.Between(200, 1500);
             const y = Phaser.Math.Between(config.SKY_HEIGHT + 50, 300);
             const startFrame = Phaser.Math.Between(0, 30);
             const glowFish = this.matter.add.sprite(x, y, 'glow-fish').play({ key: 'glowFishAnimation', startFrame });
-            glowFish.setCollisionGroup(this.glowFishGroup);
+            glowFish.setCollisionGroup(-1);
+            glowFish.setCollidesWith([]);
             glowFish.setScale(0.25, 0.25);
             glowFish.setPipeline('Light2D');
             glowFish.directionX = Phaser.Math.Between(-1, 1);
             glowFish.setIgnoreGravity(true);
+            glowFish.setDepth(-1);
             if (glowFish.directionX === 0) {
                 glowFish.directionX = -1;
             }
+            this.glowFishArray.push(glowFish);
         }
 
         // Place Shipwreck and loot
@@ -156,11 +160,7 @@ export default class MainScene extends Phaser.Scene {
             }
 
             if (subObj && !this.sub.isDead() && otherObj) {
-                if (otherObj.collisionFilter.group === this.glowFishGroup) {
-                    this.sub.pickupGlowFish();
-                    otherObj.gameObject.destroy();
-                }
-                else if (otherObj.parent.label === 'loot') {
+                if (otherObj.parent.label === 'loot') {
                     this.collectLoot(otherObj);
                 }
                 else if (otherObj.collisionFilter.group === 0) {
@@ -217,19 +217,26 @@ export default class MainScene extends Phaser.Scene {
             }
         });
 
-        this.matter.world.getAllBodies().forEach((body) => {
-            if (body.collisionFilter.group === this.glowFishGroup) {
-                body.gameObject.setVelocityX(.5 * body.gameObject.directionX);
-                body.gameObject.flipX = body.gameObject.directionX < 0;
-
-                if (body.gameObject.x < 100) {
-                    body.gameObject.directionX = 1;
-                }
-                else if (body.gameObject.x > 1800) {
-                    body.gameObject.directionX = -1;
+        this.glowFishArray.forEach((fish, index, object) => {
+            if (Phaser.Geom.Intersects.RectangleToRectangle(this.sub.plunger.getBounds(), fish.getBounds())) {
+                if (this.sub.lightChargeLevel < 1.0) {
+                    this.sub.pickupGlowFish();
+                    fish.destroy();
+                    object.splice(index, 1);
                 }
             }
-        });
+            else {
+                fish.setVelocityX(.5 * fish.directionX);
+                fish.flipX = fish.directionX < 0;
+
+                if (fish.x < 100) {
+                    fish.directionX = 1;
+                }
+                else if (fish.x > 1800) {
+                    fish.directionX = -1;
+                }
+            }
+        }, this);
 
         const distance = Phaser.Math.Distance.BetweenPoints(this.sub.subContainer, this.bargeSprite);
         if (distance < 120 && this.sub.hasLoot) {
