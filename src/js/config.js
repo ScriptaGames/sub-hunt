@@ -15,7 +15,7 @@ const config = {
     BOSS_REVEAL_DEPTH: 2300,
     BOSS_REVEAL_TIME : 7,
     FADE_DURATION    : 250,
-    ROCK_DAMAGE      : 0.2,
+    ROCK_DAMAGE      : 0.25,
     MAX_DARK_DEPTH   : 2300,
 };
 
