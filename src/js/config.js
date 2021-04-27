@@ -17,6 +17,7 @@ const config = {
     FADE_DURATION    : 250,
     ROCK_DAMAGE      : 0.25,
     MAX_DARK_DEPTH   : 2300,
+    MUSIC_VOLUME     : 0.5,
 };
 
 if (ENV === 'dev') {

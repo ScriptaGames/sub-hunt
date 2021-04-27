@@ -83,12 +83,12 @@ export default class SoundManagerScene extends Phaser.Scene {
 
         this.gameScene.events.on('win', () => {
             this.mainMusic.stop();
-            this.winMusic.play({ loop: true, volume: 0.25 });
+            this.winMusic.play({ loop: true, volume: config.MUSIC_VOLUME });
         });
 
         this.gameScene.events.on('lose', () => {
             this.mainMusic.stop();
-            this.loseMusic.play({ loop: true, volume: 0.25 });
+            this.loseMusic.play({ loop: true, volume: config.MUSIC_VOLUME });
         });
 
         this.gameScene.events.on('loot', () => {
@@ -131,7 +131,7 @@ export default class SoundManagerScene extends Phaser.Scene {
         this.menuMusic.stop();
         this.loseMusic.stop();
         this.winMusic.stop();
-        this.mainMusic.play({ loop: true, volume: 0.25 });
+        this.mainMusic.play({ loop: true, volume: config.MUSIC_VOLUME });
         this.propeller.play({ loop: true });
     }
 }
