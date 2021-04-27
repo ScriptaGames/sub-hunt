@@ -194,6 +194,7 @@ export default class MainScene extends Phaser.Scene {
         bubble.setScale(.25, .25);
         bubble.setPipeline('Light2D');
         bubble.setOrigin(0, 0);
+        bubble.setDepth(1000);
         bubble.tint = 0x001a33;
         this.bubbles.push(bubble);
     }
@@ -243,10 +244,10 @@ export default class MainScene extends Phaser.Scene {
     }
 
     setAmbientColor() {
-        const lightAmbient = Phaser.Display.Color.HexStringToColor('0x0066cc');
+        const lightAmbient = Phaser.Display.Color.HexStringToColor('0x449df6');
         const darkAmbient = Phaser.Display.Color.HexStringToColor('0x0');
 
-        const maxDarkDepth = 2500;
+        const maxDarkDepth = 2300;
         const subDepth = Phaser.Math.Clamp(this.sub.subMatterContainer.y, 0, maxDarkDepth);
 
         const newAmbient = Phaser.Display.Color.Interpolate.ColorWithColor(lightAmbient, darkAmbient,
