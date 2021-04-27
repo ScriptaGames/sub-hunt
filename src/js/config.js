@@ -12,9 +12,11 @@ const config = {
     SKY_HEIGHT       : 100,
     GRAVITY          : 0.08,
     DISABLE_SOUNDS   : false,
-    BOSS_REVEAL_DEPTH: 2400,
+    BOSS_REVEAL_DEPTH: 2300,
     BOSS_REVEAL_TIME : 7,
     FADE_DURATION    : 250,
+    ROCK_DAMAGE      : 0.2,
+    MAX_DARK_DEPTH   : 2300,
 };
 
 if (ENV === 'dev') {

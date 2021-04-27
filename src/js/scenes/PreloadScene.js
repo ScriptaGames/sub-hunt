@@ -65,11 +65,11 @@ export default class PreloadScene extends Phaser.Scene {
             loadingText.destroy();
             percentText.destroy();
 
-            // Activate sound manager now that all sound files have loaded
+            // Create inert scenes
             this.scene.start('SoundManagerScene');
-
             this.scene.start('VictoryScene');
             this.scene.start('GameOverScene');
+            this.scene.start('UIScene');
         });
 
         // Static images
@@ -95,11 +95,13 @@ export default class PreloadScene extends Phaser.Scene {
         this.load.image('button-play-50-image', '../assets/images/button-play-50.png');
         this.load.image('button-playagain-20-image', '../assets/images/button-playagain-20.png');
         this.load.image('button-playagain-50-image', '../assets/images/button-playagain-50.png');
-        this.load.image('clouds-image', '../assets/images/clouds.png');
+        this.load.image('cloud-image', '../assets/images/clouds.png');
         this.load.image('game_over_screen-text-image', '../assets/images/game_over_screen-text.png');
         this.load.image('game_over_screen-text-02-image', '../assets/images/game_over_screen-text-02.png');
         this.load.image('tutorial_screen-image', '../assets/images/tutorial_screen.jpg');
         this.load.image('victory_screen-text-image', '../assets/images/victory_screen-text.png');
+        this.load.image('light-icon-image', '../assets/images/Light_Icon.png');
+        this.load.image('health-icon-image', '../assets/images/Health_Icon.png');
 
         // Sprite sheets
         this.load.spritesheet('fullscreen', '../assets/images/fullscreen-white.png', { frameWidth: 64, frameHeight: 64 });

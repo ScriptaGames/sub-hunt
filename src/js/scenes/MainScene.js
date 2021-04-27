@@ -33,6 +33,11 @@ export default class MainScene extends Phaser.Scene {
         sky.fillStyle(0x99ccff);
         sky.fillRect(0, 0, config.WORLD_WIDTH, config.SKY_HEIGHT);
 
+        // Add clouds
+        this.add.image(150, 50, 'cloud-image');
+        this.add.image(900, 45, 'cloud-image');
+        this.add.image(1800, 40, 'cloud-image');
+
         // Add the Actors to the scene
         // Barge sprite
         this.bargeSprite = this.add.sprite(1000, 80, 'barge-image');
@@ -165,7 +170,7 @@ export default class MainScene extends Phaser.Scene {
                 }
                 else if (otherObj.collisionFilter.group === 0) {
                     consola.info('collided with ground');
-                    this.sub.takeDamage(0.1);
+                    this.sub.takeDamage(config.ROCK_DAMAGE);
                     if (this.sub.isDead()) {
                         this.matter.world.setGravity(0, config.GRAVITY);
                         this.scene.get('GameOverScene').show('rocks');
@@ -189,6 +194,7 @@ export default class MainScene extends Phaser.Scene {
         bubble.setScale(.25, .25);
         bubble.setPipeline('Light2D');
         bubble.setOrigin(0, 0);
+        bubble.setDepth(1000);
         bubble.tint = 0x001a33;
         this.bubbles.push(bubble);
     }
@@ -245,10 +251,10 @@ export default class MainScene extends Phaser.Scene {
     }
 
     setAmbientColor() {
-        const lightAmbient = Phaser.Display.Color.HexStringToColor('0x0066cc');
+        const lightAmbient = Phaser.Display.Color.HexStringToColor('0x449df6');
         const darkAmbient = Phaser.Display.Color.HexStringToColor('0x0');
 
-        const maxDarkDepth = 2500;
+        const maxDarkDepth = 2300;
         const subDepth = Phaser.Math.Clamp(this.sub.subMatterContainer.y, 0, maxDarkDepth);
 
         const newAmbient = Phaser.Display.Color.Interpolate.ColorWithColor(lightAmbient, darkAmbient,
