@@ -15,6 +15,7 @@ const config = {
     BOSS_REVEAL_DEPTH: 2400,
     BOSS_REVEAL_TIME : 7,
     FADE_DURATION    : 250,
+    ROCK_DAMAGE      : 0.2,
 };
 
 if (ENV === 'dev') {

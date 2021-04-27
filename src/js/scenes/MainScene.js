@@ -165,7 +165,7 @@ export default class MainScene extends Phaser.Scene {
                 }
                 else if (otherObj.collisionFilter.group === 0) {
                     consola.info('collided with ground');
-                    this.sub.takeDamage(0.1);
+                    this.sub.takeDamage(config.ROCK_DAMAGE);
                     if (this.sub.isDead()) {
                         this.matter.world.setGravity(0, config.GRAVITY);
                         this.scene.get('GameOverScene').show('rocks');

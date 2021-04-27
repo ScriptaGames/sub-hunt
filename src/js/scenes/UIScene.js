@@ -1,9 +1,10 @@
 /* global Phaser */
 const consola = require('consola').withTag('UIScene');
+import config from '../config';
 
 export default class UIScene extends Phaser.Scene {
     constructor() {
-        super({ key: 'UIScene', active: true });
+        super({ key: 'UIScene' });
     }
 
     create() {
@@ -27,16 +28,32 @@ export default class UIScene extends Phaser.Scene {
     }
 
     drawPowerBar(chargeLevel) {
+        const x = (config.GAME_WIDTH / 2) - 350;
+        const y = config.GAME_HEIGHT - 50;
+
+        const lightIcon = this.add.image(x - 30, y - 10, 'light-icon-image');
+        lightIcon.setOrigin(0, 0);
+        lightIcon.setScale(0.8);
+
+
         this.powerBar.fillStyle(0x555555);
-        this.powerBar.fillRect(10, 10, 50, 20);
-        this.powerBar.fillStyle(0xffff00);
-        this.powerBar.fillRect(10, 10, 50 * chargeLevel, 20);
+        this.powerBar.fillRect(x, y, 150, 20);
+        this.powerBar.fillStyle(0xfffff0);
+        this.powerBar.fillRect(x, y, 150 * chargeLevel, 20);
     }
 
     drawHealthBar(health) {
+
+        const x = (config.GAME_WIDTH / 2) + 200;
+        const y = config.GAME_HEIGHT - 50;
+
+        const healthIcon = this.add.image(x - 35, y - 7, 'health-icon-image');
+        healthIcon.setOrigin(0, 0);
+        healthIcon.setScale(0.8);
+
         this.powerBar.fillStyle(0x555555);
-        this.powerBar.fillRect(10, 40, 50, 20);
-        this.powerBar.fillStyle(0xff0000);
-        this.powerBar.fillRect(10, 40, 50 * health, 20);
+        this.powerBar.fillRect(x, y, 150, 20);
+        this.powerBar.fillStyle(0xfffff0);
+        this.powerBar.fillRect(x, y, 150 * health, 20);
     }
 }
