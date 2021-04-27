@@ -33,6 +33,11 @@ export default class MainScene extends Phaser.Scene {
         sky.fillStyle(0x99ccff);
         sky.fillRect(0, 0, config.WORLD_WIDTH, config.SKY_HEIGHT);
 
+        // Add clouds
+        this.add.image(150, 50, 'cloud-image');
+        this.add.image(900, 45, 'cloud-image');
+        this.add.image(1800, 40, 'cloud-image');
+
         // Add the Actors to the scene
         // Barge sprite
         this.bargeSprite = this.add.sprite(1000, 80, 'barge-image');

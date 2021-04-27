@@ -95,7 +95,7 @@ export default class PreloadScene extends Phaser.Scene {
         this.load.image('button-play-50-image', '../assets/images/button-play-50.png');
         this.load.image('button-playagain-20-image', '../assets/images/button-playagain-20.png');
         this.load.image('button-playagain-50-image', '../assets/images/button-playagain-50.png');
-        this.load.image('clouds-image', '../assets/images/clouds.png');
+        this.load.image('cloud-image', '../assets/images/clouds.png');
         this.load.image('game_over_screen-text-image', '../assets/images/game_over_screen-text.png');
         this.load.image('game_over_screen-text-02-image', '../assets/images/game_over_screen-text-02.png');
         this.load.image('tutorial_screen-image', '../assets/images/tutorial_screen.jpg');
